@@ -1,0 +1,6 @@
+The system shall provide a search bar to find recipes by ingredient and name.
+
+The system shall provide a way for the user to rate how much they liked a recipe.
+
+The system shall provide a way to share a recipe through a link or through social media.
+
