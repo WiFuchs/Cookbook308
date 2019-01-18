@@ -1,0 +1,6 @@
+The system shall provide a revision history for each recipe.
+
+The system shall provide a way to import recipes from online sources when provided the URL.
+
+The system shall provide a page to view recipes that the user has already cooked in chronological order.
+

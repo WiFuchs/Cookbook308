@@ -1,0 +1,6 @@
+As a health fanatic, I want to be able to log all recipes I’ve cooked, so I can keep track of the foods I am eating.
+
+As a bad chef, I want to be able to make my recipe public, so that people can fix it for me.
+
+As a professional chef, I want to be able to keep recipes private, so that people don’t steal my brilliant ideas.
+
