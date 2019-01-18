@@ -1,0 +1,6 @@
+As a food blogger, I want to share delicious recipes I have made, so that I can build a community of followers.
+
+As a cook, I want to be able to view other’s recipes, so that I can get inspired and learn.
+
+As an experience cook, I want to be able to add annotations to recipes I’ve tried, so I can improve my recipes and find my favorite version.
+
