@@ -1,0 +1,5 @@
+1. As a user with dietary restrictions, I want to be able to search for vegan, vegetarian, and gluten-free recipes, so I can try recipes that fit to my dietary needs/ preferences.
+
+2. As a busy person, I want to be able to filter recipes by active time, so that I can find a meal that fits my schedule.
+
+3. As an experienced cook, I want to be able to find recipes above a specified difficulty rating, so that I can find recipes to challenge myself.
