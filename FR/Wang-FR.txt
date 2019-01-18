@@ -1,0 +1,5 @@
+1. The system shall provide a search function to allow user to look up recipes.
+
+2. The system shall provide a way to hide and unhide comment sections attached to different steps in the recipe.
+
+3. The system shall provide a ten-point rating scale for users to rank difficulty of recipes they have made.
