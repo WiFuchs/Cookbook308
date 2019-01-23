@@ -1,0 +1,11 @@
+# Functional Requirements
+The system shall provide a way to to search for a recipe in user’s cookbook by ingredients.
+
+The system shall save entry data to a user’s cookbook. 
+
+The system shall provide a way to sort a user’s cookbook by difficulty rating.
+
+## Dictionary
+*Recipe*: list of ingredients, list of instructions, original source (pinterest, allrecipes, home cooked, etc.)
+*Entry data*: recipe, date, prep time, taste rating, difficulty rating 
+*Cookbook*: list of entries, where each entry represents a recipe the user made
