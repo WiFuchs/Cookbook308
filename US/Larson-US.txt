@@ -1,0 +1,6 @@
+# User Stories
+As a home chef, I want to see a list of my recipes, so that I can quickly reference them during the cooking process. 
+
+As a professional baker, I want to have access to a recipe’s ingredients, so that I can ensure I have the correct items and quantities on hand.
+
+As a food blogger, I want to share delicious recipes I have made, so that I can built a community of followers.
