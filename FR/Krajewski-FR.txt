@@ -1,0 +1,5 @@
+1. The system shall display different recipes for the user to select one.
+
+2. The system shall provide filter options for customers that want gluten-free or vegan recipes.
+
+3. The system shall provide the customer with an error message if no recipes were found.
