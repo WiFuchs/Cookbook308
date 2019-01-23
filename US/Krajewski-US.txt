@@ -1,0 +1,5 @@
+1. As a beginner cook, I want to find recipes that are below a specified difficulty rating, so that I can cook a realistic meal.
+
+2. As a beginner cook, I want to be able to look up cooking techniques through hyperlinks, so that I can easily access and learn them.
+
+3. As a home cook, I want to be able to view my highest rated recipes, so that I don’t have to think about what to cook when I am tired.
