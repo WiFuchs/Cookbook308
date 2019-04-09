@@ -4,7 +4,7 @@ jdk:
 
 addons:
   sonarcloud:
-    organization: "calpoly-chefs-github"
+    organization: "calpoly-chefs"
     token:
       secure: "c82a167b19bcbf533de1e4f5bc000ec06b37db3c"
 script:
