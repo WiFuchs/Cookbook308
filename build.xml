@@ -3,17 +3,17 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="HelloWorld">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="trunk">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../Applications/Eclipse.app/Contents/Eclipse/"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../Applications/Eclipse.app/Contents/Eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="10"/>
     <property name="source" value="10"/>
-    <path id="HelloWorld.classpath">
+    <path id="trunk.classpath">
         <pathelement location="bin"/>
     </path>
     <path id="run.Test.classpath">
-        <path refid="HelloWorld.classpath"/>
+        <path refid="trunk.classpath"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -35,7 +35,7 @@
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <classpath refid="HelloWorld.classpath"/>
+            <classpath refid="trunk.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
