@@ -1,0 +1,12 @@
+language: java
+jdk:
+- oraclejdk8
+
+addons:
+  sonarcloud:
+    organization: "calpoly-chefs-github"
+    token:
+      secure: "41c63804a4fb208fbe4af3ff3a7609b03e9387a6"
+script:
+- ant build
+- sonar-scanner
