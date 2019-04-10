@@ -1,0 +1,5 @@
+1. The system shall allow the user to annotate recipes in their log and in other public users’ logs by highlighting the section to be annotated and adding a comment box.
+
+2. The system shall allow users to like annotations.
+
+3. The system shall only display the top three annotations for each highlighted section. 
