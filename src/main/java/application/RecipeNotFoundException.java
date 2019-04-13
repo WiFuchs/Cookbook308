@@ -1,4 +1,4 @@
-package API;
+package application;
 
 public class RecipeNotFoundException extends RuntimeException {
 

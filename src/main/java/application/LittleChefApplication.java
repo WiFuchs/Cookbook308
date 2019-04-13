@@ -1,4 +1,4 @@
-package API;
+package application;
 
 
 import org.springframework.boot.SpringApplication;

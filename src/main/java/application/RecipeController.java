@@ -1,7 +1,4 @@
-package API;
-
-import Models.Recipe;
-import Models.RecipeRepository;
+package application;
 
 import java.util.List;
 
@@ -12,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import entities.Recipe;
+import entities.RecipeRepository;
 
 
 @RestController
