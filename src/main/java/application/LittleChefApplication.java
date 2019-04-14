@@ -8,9 +8,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("API")
-@EnableJpaRepositories("Models")
-@EntityScan("Models")
+@ComponentScan("application")
+@EnableJpaRepositories("entities")
+@EntityScan("entities")
 public class LittleChefApplication {
 
 	public static void main(String[] args) {

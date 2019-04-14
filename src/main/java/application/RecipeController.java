@@ -25,7 +25,7 @@ class RecipeController {
 
 	// Aggregate root
 
-	@GetMapping("/recipe")
+	@GetMapping("/recipes")
 	List<Recipe> all() {
 		return repository.findAll();
 	}
