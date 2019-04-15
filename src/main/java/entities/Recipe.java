@@ -56,7 +56,6 @@ public class Recipe {
 	}
 	
 	public void addIngredient(Ingredient ing) {
-		System.out.println("ingredient: "+ ing);
 		ingredients.add(ing);
 		ing.setRecipe(this);
 	}

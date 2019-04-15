@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class IngredientAnnotation extends Annotation {
 
     @ManyToOne
-    @JoinColumn(name = "ingredient_id")
+    @JoinColumn
     private Ingredient ingredient;
 
     public IngredientAnnotation() {}
