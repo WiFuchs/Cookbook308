@@ -20,12 +20,15 @@ public class Ingredient {
 	private int quantity;
 	private String units;
 	private String ingredient;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     @JsonIgnoreProperties("ingredients")
 	private Recipe recipe;
-	
+
+	@OneToMany(mappedBy = "Ingredient", orphanRemoval = true, cascade = CascadeType.ALL)
+	private IngredientAnnotation ingredAnnot;
+
 	public Ingredient() {
 	}
 
