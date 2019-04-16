@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
@@ -29,7 +30,7 @@ public class Ingredient {
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    @JsonIgnoreProperties("ingredients")
+    @JsonIgnore
 	private Recipe recipe;
 
 	@JsonIgnoreProperties("ingredients")

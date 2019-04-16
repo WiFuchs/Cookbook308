@@ -19,5 +19,6 @@ public class User {
 	@OneToMany
 	private List<Recipe> recipes;
 	
+	//@OneToMany
 	//private List<JournalEntry> entries;
 }

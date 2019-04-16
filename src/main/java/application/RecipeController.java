@@ -43,7 +43,7 @@ class RecipeController {
 		return repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
 	}
 
-	@PutMapping("/employees/{id}")
+	@PutMapping("/recipes/{id}")
 	Recipe replaceRecipe(@RequestBody Recipe newRecipe, @PathVariable Long id) {
 
 //		return repository.findById(id)
@@ -63,7 +63,7 @@ class RecipeController {
 		return repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
 	}
 
-	@DeleteMapping("/employees/{id}")
+	@DeleteMapping("/recipes/{id}")
 	void deleteEmployee(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
