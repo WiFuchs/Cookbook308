@@ -25,7 +25,7 @@ class LoadDatabase {
 	@Bean
 	CommandLineRunner initDatabase(RecipeRepository recRepo) {
 		
-		Recipe rec = new Recipe("Chicken", "manual", 5, 45, new Ingredient(3, "cups", "testing"), new Ingredient(1, "Tbsp", "something"));
+		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true, new Ingredient(3, "cups", "testing"), new Ingredient(1, "Tbsp", "something"));
 		recRepo.save(rec);
 		
 		Recipe rec2 = new Recipe("Chicken", "manual", 5, 45);

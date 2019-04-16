@@ -2,6 +2,7 @@ package entities;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,8 +32,9 @@ public class Ingredient {
     @JsonIgnoreProperties("ingredients")
 	private Recipe recipe;
 
+	@JsonIgnoreProperties("ingredients")
 	@OneToMany(mappedBy = "ingredient", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<IngredientAnnotation> ingredAnnot;
+	private List<IngredientAnnotation> annotations = new ArrayList<IngredientAnnotation>();
 
 	public Ingredient() {
 	}
@@ -41,5 +44,15 @@ public class Ingredient {
 		this.units = units;
 		this.ingredient = ingredient;
 		this.recipe = null;
+	}
+	
+	public void addAnnotation(IngredientAnnotation annot) {
+		annotations.add(annot);
+		annot.setIngredient(this);
+	}
+	
+	public void removeAnnotation(IngredientAnnotation annot) {
+		annotations.remove(annot);
+		annot.setIngredient(null);
 	}
 }

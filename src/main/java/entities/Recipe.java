@@ -28,9 +28,13 @@ public class Recipe {
 	private int rating;
 	private int difficulty;
 	private int time;
+	private boolean isPublic;
 	
 	@OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Ingredient> ingredients;
+	
+	@OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<Annotation> annotations = new ArrayList<Annotation>();
 	
 	public Recipe() {
 		this.ingredients = new ArrayList<Ingredient>();
@@ -45,12 +49,13 @@ public class Recipe {
 		this.ingredients = new ArrayList<Ingredient>();
 	}
 	
-	public Recipe(String title, String source, int difficulty, int time, Ingredient... ingredients) {
+	public Recipe(String title, String source, int difficulty, int time, boolean isPublic, Ingredient... ingredients) {
 		this.title = title;
 		this.source = source;
 		this.difficulty = difficulty;
 		this.time = time;
 		this.rating = 0;
+		this.isPublic = isPublic;
 		this.ingredients = Stream.of(ingredients).collect(Collectors.toList());
 		this.ingredients.forEach(ing -> ing.setRecipe(this));
 	}
