@@ -33,9 +33,6 @@ public class Recipe {
 	@OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Ingredient> ingredients;
 	
-	@OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<Annotation> annotations = new ArrayList<Annotation>();
-	
 	public Recipe() {
 		this.ingredients = new ArrayList<Ingredient>();
 	}
