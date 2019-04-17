@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import entities.Ingredient;
 import entities.IngredientRepository;
+import entities.Instruction;
 import entities.Recipe;
 import entities.RecipeRepository;
 
@@ -25,12 +26,14 @@ class LoadDatabase {
 	@Bean
 	CommandLineRunner initDatabase(RecipeRepository recRepo) {
 		
-		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true, new Ingredient(3, "cups", "testing"), new Ingredient(1, "Tbsp", "something"));
+		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true);
 		recRepo.save(rec);
 		
-		Recipe rec2 = new Recipe("Chicken", "manual", 5, 45);
+		Recipe rec2 = new Recipe("Chicken", "manual", 5, 45, true);
 		Ingredient ing = new Ingredient(3, "cups", "third test");
 		rec2.addIngredient(ing);
+		Instruction instr = new Instruction("Do this thing");
+		rec2.addStep(instr);
 		recRepo.save(rec2);
 		
 		return args -> {
