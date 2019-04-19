@@ -41,13 +41,13 @@ public class Instruction {
 		this.recipe = null;
 	}
 	
-//	public void addAnnotation(IngredientAnnotation annot) {
+//	public void addAnnotation(InstructionAnnotation annot) {
 //		annotations.add(annot);
-//		annot.setIngredient(this);
+//		annot.setInstruction(this);
 //	}
 //	
-//	public void removeAnnotation(IngredientAnnotation annot) {
+//	public void removeAnnotation(InstructionAnnotation annot) {
 //		annotations.remove(annot);
-//		annot.setIngredient(null);
+//		annot.setInstruction(null);
 //	}
 }

@@ -13,8 +13,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import entities.Ingredient;
+import entities.IngredientAnnotation;
 import entities.IngredientRepository;
 import entities.Instruction;
+import entities.JournalEntry;
+import entities.JournalEntryRepository;
 import entities.Recipe;
 import entities.RecipeRepository;
 
@@ -24,7 +27,7 @@ import entities.RecipeRepository;
 class LoadDatabase {
 
 	@Bean
-	CommandLineRunner initDatabase(RecipeRepository recRepo) {
+	CommandLineRunner initDatabase(RecipeRepository recRepo, JournalEntryRepository journRepo) {
 		
 		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true);
 		recRepo.save(rec);
@@ -35,6 +38,9 @@ class LoadDatabase {
 		Instruction instr = new Instruction("Do this thing");
 		rec2.addStep(instr);
 		recRepo.save(rec2);
+		
+		JournalEntry journ = new JournalEntry(rec2, "vegan", 25, 35, 3, 5, new IngredientAnnotation());
+		journRepo.save(journ);
 		
 		return args -> {
 			log.info("\nseeded DB\n");

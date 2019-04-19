@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Data
-@EqualsAndHashCode(exclude = "ingredients")
 @Entity
 public class Recipe {
 
@@ -62,6 +61,7 @@ public class Recipe {
 		this.ingredients = Stream.of(ingredients).collect(Collectors.toList());
 		this.ingredients.forEach(ing -> ing.setRecipe(this));
 		this.steps = Stream.of(steps).collect(Collectors.toList());
+		this.steps.forEach(step -> step.setRecipe(this));
 	}
 	
 	public void addIngredient(Ingredient ing) {

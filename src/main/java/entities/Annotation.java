@@ -13,6 +13,10 @@ public abstract class Annotation {
     private String comment;
     private boolean pinned;
     
+    @ManyToOne
+    @JoinColumn
+    private JournalEntry journal;
+    
     public Annotation() {}
 
     public Annotation(String comment) {

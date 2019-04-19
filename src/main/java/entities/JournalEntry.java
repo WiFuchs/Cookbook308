@@ -2,6 +2,9 @@ package entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import lombok.Data;
 
@@ -23,24 +26,25 @@ public class JournalEntry {
 	/* Date format will be mm/dd/yyyy, hh:mm am/pm */
 	@Basic
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date utilTimestamp;
+	private Date timestamp;
 	
-	/* @OneToMany(mappedBy = "journalEntry", orphanRemoval = true, cascade = CascadeType.ALL) 
-	private List<Annotation> annotations; */
+	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL) 
+	private List<Annotation> annotations;
 	
 	/* default constructor */
 	public JournalEntry() {
 	}
 
-	public JournalEntry(Recipe recipe, Date timeStamp, String tags, int prepTime, 
+	public JournalEntry(Recipe recipe, String tags, int prepTime, 
 			int cookTime, int difficultyRating, int rating, Annotation... annotations) {
 		this.recipe = recipe;
-		this.utilTimestamp = timeStamp;
+		this.timestamp = new Date();
 		this.tags = tags;
 		this.prepTime = prepTime;
 		this.cookTime = cookTime;
 		this.difficultyRating = difficultyRating;
 		this.rating = rating;
-		//this.annotations = new ArrayList<Annotation>();
+		this.annotations = Stream.of(annotations).collect(Collectors.toList());
+		this.annotations.forEach(step -> step.setJournal(this));
 	}
 }
