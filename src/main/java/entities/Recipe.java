@@ -29,6 +29,8 @@ public class Recipe {
 	private int time;
 	private boolean isPublic;
 	
+	private long userID;
+	
 	@OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Ingredient> ingredients;
 	
@@ -62,6 +64,7 @@ public class Recipe {
 		this.ingredients.forEach(ing -> ing.setRecipe(this));
 		this.steps = Stream.of(steps).collect(Collectors.toList());
 		this.steps.forEach(step -> step.setRecipe(this));
+		this.userID = 0;
 	}
 	
 	public void addIngredient(Ingredient ing) {

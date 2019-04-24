@@ -37,6 +37,7 @@ class LoadDatabase {
 		rec2.addIngredient(ing);
 		Instruction instr = new Instruction("Do this thing");
 		rec2.addStep(instr);
+		rec2.setUserID(1);
 		recRepo.save(rec2);
 		
 		JournalEntry journ = new JournalEntry(rec2, "vegan", 25, 35, 3, 5, new IngredientAnnotation());

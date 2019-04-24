@@ -1,6 +1,9 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import entities.IngredientAnnotation;
+import entities.JournalEntryRepository;
 import entities.Recipe;
 import entities.RecipeRepository;
 
@@ -18,9 +23,11 @@ import entities.RecipeRepository;
 class RecipeController {
 
 	private final RecipeRepository repository;
+	private final JournalEntryRepository journals;
 
-	RecipeController(RecipeRepository repository) {
+	RecipeController(RecipeRepository repository, JournalEntryRepository journals) {
 		this.repository = repository;
+		this.journals = journals;
 	}
 
 	// Aggregate root
@@ -40,7 +47,13 @@ class RecipeController {
 	@GetMapping("/recipes/{id}")
 	Recipe one(@PathVariable Long id) {
 
-		return repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
+		Recipe rec = repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
+		
+		rec.getIngredients().forEach((ing) -> ing.setAnnotations(
+				ing.getAnnotations().stream().filter((a) -> a.getJournal() != null).collect(Collectors.toList())));
+				//new ArrayList<IngredientAnnotation>(Arrays.asList(new IngredientAnnotation()))));
+		
+		return rec;
 	}
 
 	@PutMapping("/recipes/{id}")
@@ -61,6 +74,13 @@ class RecipeController {
 		//TODO: implement put
 		
 		return repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
+	}
+	
+	@GetMapping("/recipes/user/{id}") 
+	List<Recipe> byUserId(@PathVariable Long id) {
+		
+		return repository.findByUserID(id);
+		
 	}
 
 	@DeleteMapping("/recipes/{id}")
