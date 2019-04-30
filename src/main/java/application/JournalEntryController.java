@@ -78,4 +78,10 @@ class JournalEntryController {
 	void deleteJournalEntry(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
+	
+	@GetMapping("/journalentries/user/{id}")
+	JournalEntry First1ByOrderByTimeDesc(@PathVariable Long id) {
+		
+		return repository.findFirst1ByUserOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
+	}
 }
