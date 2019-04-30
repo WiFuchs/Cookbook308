@@ -8,21 +8,13 @@ import java.util.logging.Logger;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+//import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import entities.Annotation;
-import entities.AnnotationRepository;
-import entities.Ingredient;
-import entities.IngredientAnnotation;
-import entities.IngredientRepository;
-import entities.Instruction;
-import entities.InstructionAnnotation;
-import entities.JournalEntry;
-import entities.JournalEntryRepository;
-import entities.Recipe;
-import entities.RecipeRepository;
+import entities.*;
+import java.util.*;
 
 
 @Configuration
@@ -30,7 +22,8 @@ import entities.RecipeRepository;
 class LoadDatabase {
 
 	@Bean
-	CommandLineRunner initDatabase(RecipeRepository recRepo, JournalEntryRepository journRepo, AnnotationRepository annotRepo) {
+	CommandLineRunner initDatabase(RecipeRepository recRepo, JournalEntryRepository journRepo, AnnotationRepository annotRepo, UserRepository userRepo) {
+		
 		
 		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true);
 		recRepo.save(rec);
@@ -46,6 +39,14 @@ class LoadDatabase {
 		
 		JournalEntry journ = new JournalEntry(rec2, "vegan", 25, 35, 3, 5, "comment", new IngredientAnnotation(3, "ingredient annotation"));
 		journRepo.save(journ);
+		
+		List<Recipe> recipes = new ArrayList<Recipe>();
+		recipes.add(rec);
+		recipes.add(rec2);
+		List<JournalEntry> entries = new ArrayList<JournalEntry>();
+		entries.add(journ);
+		User user = new User("Alfredo Linguine", recipes, entries);
+		userRepo.save(user);
 		
 		return args -> {
 			log.info("\nseeded DB\n");
