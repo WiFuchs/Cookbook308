@@ -1,6 +1,8 @@
 package application;
 
 import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,14 +43,14 @@ class JournalEntryController {
 
 	@GetMapping("/journalentries/{id}")
 	JournalEntry one(@PathVariable Long id) {
-
+		
 		return repository.findById(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 	}
 	
-	@GetMapping("/journalentries/{id}/time/{timestamp}")
+	@GetMapping("/user/{id}/journalentries/{timestamp}")
 	JournalEntry byIdAndTimeStamp(@PathVariable("id") Long id, 
-			@PathVariable("timestamp") @DateTimeFormat(pattern = "ddMMyyyy") Date timestamp) {
-		
+			@PathVariable("timestamp") @DateTimeFormat(pattern = "yyyy-MM-dd") Date timestamp) {
+	
 		return repository.findByUserAndTimestamp(id, timestamp).orElseThrow(() -> new JournalEntryNotFoundException(timestamp));
 	}
 

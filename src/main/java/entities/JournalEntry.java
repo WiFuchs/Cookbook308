@@ -19,7 +19,7 @@ public class JournalEntry {
 	private int rating;
 	private String tags;
 	private String comment;
-	private int user;
+	private Long user;
 	
 	@JoinColumn
 	@OneToOne
@@ -27,7 +27,7 @@ public class JournalEntry {
 	
 	/* Date format will be mm/dd/yyyy, hh:mm am/pm */
 	@Basic
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date timestamp;
 	
 	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL) 
@@ -49,6 +49,6 @@ public class JournalEntry {
 		this.comment = comment;
 		this.annotations = Stream.of(annotations).collect(Collectors.toList());
 		this.annotations.forEach(step -> step.setJournal(this));
-		user = 0;
+		user = (long) 0;
 	}
 }
