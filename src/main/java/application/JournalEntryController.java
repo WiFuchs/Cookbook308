@@ -1,7 +1,9 @@
 package application;
 
 import java.util.List;
+import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,25 +27,32 @@ class JournalEntryController {
 
 	// Aggregate root
 
-	@GetMapping("/journalentry")
+	@GetMapping("/user/{id}/journalentries")
 	List<JournalEntry> all() {
 		return repository.findAll();
 	}
 
-	@PostMapping("/journalentry")
+	@PostMapping("/journalentries")
 	JournalEntry newJournalEntry(@RequestBody JournalEntry newJournalEntry) {
 		return repository.save(newJournalEntry);
 	}
 
 	// Single item
 
-	@GetMapping("/journalentry/{id}")
+	@GetMapping("/journalentries/{id}")
 	JournalEntry one(@PathVariable Long id) {
 
 		return repository.findById(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 	}
+	
+	@GetMapping("/journalentries/{id}/time/{timestamp}")
+	JournalEntry byIdAndTimeStamp(@PathVariable("id") Long id, 
+			@PathVariable("timestamp") @DateTimeFormat(pattern = "ddMMyyyy") Date timestamp) {
+		
+		return repository.findByUserAndTimestamp(id, timestamp).orElseThrow(() -> new JournalEntryNotFoundException(timestamp));
+	}
 
-	@PutMapping("/journalentry/{id}")
+	@PutMapping("/journalentries/{id}")
 	JournalEntry replaceJournalEntry(@RequestBody JournalEntry newJournalEntry, @PathVariable Long id) {
 
 //		return repository.findById(id)
@@ -63,8 +72,8 @@ class JournalEntryController {
 		return repository.findById(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 	}
 
-	@DeleteMapping("/journalentry/{id}")
-	void deleteEmployee(@PathVariable Long id) {
+	@DeleteMapping("/journalentries/{id}")
+	void deleteJournalEntry(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Entity
 public abstract class Annotation {
@@ -13,6 +15,7 @@ public abstract class Annotation {
     private String comment;
     private long userID;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private JournalEntry journal;

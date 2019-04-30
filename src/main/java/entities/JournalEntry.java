@@ -18,6 +18,8 @@ public class JournalEntry {
 	private int difficultyRating;
 	private int rating;
 	private String tags;
+	private String comment;
+	private int user;
 	
 	@JoinColumn
 	@OneToOne
@@ -36,7 +38,7 @@ public class JournalEntry {
 	}
 
 	public JournalEntry(Recipe recipe, String tags, int prepTime, 
-			int cookTime, int difficultyRating, int rating, Annotation... annotations) {
+			int cookTime, int difficultyRating, int rating, String comment, Annotation... annotations) {
 		this.recipe = recipe;
 		this.timestamp = new Date();
 		this.tags = tags;
@@ -44,7 +46,9 @@ public class JournalEntry {
 		this.cookTime = cookTime;
 		this.difficultyRating = difficultyRating;
 		this.rating = rating;
+		this.comment = comment;
 		this.annotations = Stream.of(annotations).collect(Collectors.toList());
 		this.annotations.forEach(step -> step.setJournal(this));
+		user = 0;
 	}
 }
