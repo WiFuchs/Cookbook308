@@ -32,9 +32,9 @@ class RecipeController {
 
 	// Aggregate root
 
-	@GetMapping("/recipes")
-	List<Recipe> all() {
-		return repository.findAll();
+	@GetMapping("user/{id}/recipes")
+	List<Recipe> all(@PathVariable Long id) {
+		return repository.findByUserID(id);
 	}
 
 	@PostMapping("/recipes")
@@ -44,13 +44,13 @@ class RecipeController {
 
 	// Single item
 
-	@GetMapping("/recipes/{id}")
-	Recipe one(@PathVariable Long id) {
+	@GetMapping("user/{id}/recipes/{rid}")
+	Recipe one(@PathVariable("id") Long id, @PathVariable("rid") Long rid) {
 
-		Recipe rec = repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
+		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
 		
 		rec.getIngredients().forEach((ing) -> ing.setAnnotations(
-				ing.getAnnotations().stream().filter((a) -> a.getJournal() != null).collect(Collectors.toList())));
+				ing.getAnnotations().stream().filter((a) -> a.getUserID() == id).collect(Collectors.toList())));
 				//new ArrayList<IngredientAnnotation>(Arrays.asList(new IngredientAnnotation()))));
 		
 		return rec;

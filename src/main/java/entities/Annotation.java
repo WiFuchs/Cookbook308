@@ -11,7 +11,7 @@ public abstract class Annotation {
 
     private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) Long id;
     private String comment;
-    private boolean pinned;
+    private long userID;
     
     @ManyToOne
     @JoinColumn
@@ -19,9 +19,9 @@ public abstract class Annotation {
     
     public Annotation() {}
 
-    public Annotation(String comment) {
+    public Annotation(long userID, String comment) {
         this.comment = comment;
-        this.pinned = false;
+        this.userID = userID;
     }
 
 }

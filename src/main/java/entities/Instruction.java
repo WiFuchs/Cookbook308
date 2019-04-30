@@ -32,6 +32,10 @@ public class Instruction {
     @JsonIgnore
 	private Recipe recipe;
 	
+	@JsonIgnoreProperties("steps")
+	@OneToMany(mappedBy = "instruction", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<InstructionAnnotation> annotations = new ArrayList<InstructionAnnotation>();
+	
 
 	public Instruction() {
 	}
@@ -41,13 +45,13 @@ public class Instruction {
 		this.recipe = null;
 	}
 	
-//	public void addAnnotation(InstructionAnnotation annot) {
-//		annotations.add(annot);
-//		annot.setInstruction(this);
-//	}
-//	
-//	public void removeAnnotation(InstructionAnnotation annot) {
-//		annotations.remove(annot);
-//		annot.setInstruction(null);
-//	}
+	public void addAnnotation(InstructionAnnotation annot) {
+		annotations.add(annot);
+		annot.setInstruction(this);
+	}
+	
+	public void removeAnnotation(InstructionAnnotation annot) {
+		annotations.remove(annot);
+		annot.setInstruction(null);
+	}
 }
