@@ -1,8 +1,8 @@
-package application;
+package exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 
-	UserNotFoundException(Long id) {
+	public UserNotFoundException(Long id) {
 		super("Could not find user " + id);
 	}
 }

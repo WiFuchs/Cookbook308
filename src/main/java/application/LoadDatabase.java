@@ -1,6 +1,10 @@
 package application;
 
 import lombok.extern.slf4j.Slf4j;
+import repositories.AnnotationRepository;
+import repositories.JournalEntryRepository;
+import repositories.RecipeRepository;
+import repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,10 +2,12 @@ package application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 import entities.User;
-import entities.UserRepository;
+import exceptions.UserNotFoundException;
+import repositories.UserRepository;
 
 @RestController
 public class UserController {

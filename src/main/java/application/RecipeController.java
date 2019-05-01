@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import entities.IngredientAnnotation;
-import entities.JournalEntryRepository;
 import entities.Recipe;
-import entities.RecipeRepository;
+import exceptions.RecipeNotFoundException;
+import repositories.JournalEntryRepository;
+import repositories.RecipeRepository;
 
 
 @RestController

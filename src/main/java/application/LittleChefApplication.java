@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("application")
-@EnableJpaRepositories("entities")
+@EnableJpaRepositories("repositories")
 @EntityScan("entities")
 public class LittleChefApplication {
 

@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import entities.JournalEntry;
-import entities.JournalEntryRepository;
+import exceptions.JournalEntryNotFoundException;
+import repositories.JournalEntryRepository;
 
 
 @RestController
