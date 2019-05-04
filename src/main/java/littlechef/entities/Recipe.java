@@ -1,9 +1,10 @@
-package entities;
+package littlechef.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -85,5 +86,16 @@ public class Recipe {
 	public void removeStep(Instruction step) {
 		steps.remove(step);
 		step.setRecipe(null);
+	}
+	
+	public void setAnnotations(List<Annotation> annotations) {
+//		this.ingredients.setAnnotations(
+//				annotations.stream()
+//				.filter(a -> a instanceof IngredientAnnotation)
+//				.collect(Collectors.toList()));
+//		this.steps.setAnnotations(
+//				annotations.stream()
+//				.filter(a -> a instanceof InstructionAnnotation)
+//				.collect(Collectors.toList()));
 	}
 }

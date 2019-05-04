@@ -1,4 +1,4 @@
-package entities;
+package littlechef.entities;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package exceptions;
+package littlechef.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 

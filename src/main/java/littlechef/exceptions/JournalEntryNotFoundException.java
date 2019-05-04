@@ -1,4 +1,4 @@
-package exceptions;
+package littlechef.exceptions;
 
 import java.util.Date;
 

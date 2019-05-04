@@ -1,5 +1,5 @@
 
-package entities;
+package littlechef.entities;
 
 import lombok.Data;
 

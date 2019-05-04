@@ -1,10 +1,6 @@
-package application;
+package littlechef.application;
 
 import lombok.extern.slf4j.Slf4j;
-import repositories.AnnotationRepository;
-import repositories.JournalEntryRepository;
-import repositories.RecipeRepository;
-import repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +13,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import entities.*;
+import littlechef.entities.*;
+import littlechef.repositories.AnnotationRepository;
+import littlechef.repositories.JournalEntryRepository;
+import littlechef.repositories.RecipeRepository;
+import littlechef.repositories.ApplicationUserRepository;
+
 import java.util.*;
 
 
@@ -26,7 +27,7 @@ import java.util.*;
 class LoadDatabase {
 
 	@Bean
-	CommandLineRunner initDatabase(RecipeRepository recRepo, JournalEntryRepository journRepo, AnnotationRepository annotRepo, UserRepository userRepo) {
+	CommandLineRunner initDatabase(RecipeRepository recRepo, JournalEntryRepository journRepo, AnnotationRepository annotRepo, ApplicationUserRepository userRepo) {
 		
 		
 		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true);
@@ -49,8 +50,6 @@ class LoadDatabase {
 		recipes.add(rec2);
 		List<JournalEntry> entries = new ArrayList<JournalEntry>();
 		entries.add(journ);
-		User user = new User("Alfredo Linguine", recipes, entries);
-		userRepo.save(user);
 		
 		return args -> {
 			log.info("\nseeded DB\n");

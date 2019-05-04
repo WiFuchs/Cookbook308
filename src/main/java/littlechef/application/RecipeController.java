@@ -1,4 +1,4 @@
-package application;
+package littlechef.application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import entities.IngredientAnnotation;
-import entities.Recipe;
-import exceptions.RecipeNotFoundException;
-import repositories.JournalEntryRepository;
-import repositories.RecipeRepository;
+import littlechef.entities.IngredientAnnotation;
+import littlechef.entities.JournalEntry;
+import littlechef.entities.Recipe;
+import littlechef.exceptions.JournalEntryNotFoundException;
+import littlechef.exceptions.RecipeNotFoundException;
+import littlechef.repositories.JournalEntryRepository;
+import littlechef.repositories.RecipeRepository;
+
 
 
 @RestController
@@ -49,10 +52,14 @@ class RecipeController {
 	Recipe one(@PathVariable("id") Long id, @PathVariable("rid") Long rid) {
 
 		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
+
+		JournalEntry journ = journals.findFirst1ByUserOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 		
-		rec.getIngredients().forEach((ing) -> ing.setAnnotations(
-				ing.getAnnotations().stream().filter((a) -> a.getUserID() == id).collect(Collectors.toList())));
-				//new ArrayList<IngredientAnnotation>(Arrays.asList(new IngredientAnnotation()))));
+		rec.setAnnotations(journ.getAnnotations());
+		
+//		rec.getIngredients().forEach((ing) -> ing.setAnnotations(
+//				ing.getAnnotations().stream().filter((a) -> a.getUserID() == id).collect(Collectors.toList())));
+//				//new ArrayList<IngredientAnnotation>(Arrays.asList(new IngredientAnnotation()))));
 		
 		return rec;
 	}

@@ -1,4 +1,4 @@
-package application;
+package littlechef.application;
 
 import java.util.List;
 import java.text.ParseException;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import entities.JournalEntry;
-import exceptions.JournalEntryNotFoundException;
-import repositories.JournalEntryRepository;
+import littlechef.entities.JournalEntry;
+import littlechef.exceptions.JournalEntryNotFoundException;
+import littlechef.repositories.JournalEntryRepository;
 
 
 @RestController
