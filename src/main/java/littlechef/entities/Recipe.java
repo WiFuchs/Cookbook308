@@ -1,10 +1,8 @@
 package littlechef.entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,7 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+/*
+ * Unused imports, here for reference or future use
+ * 
+ * import lombok.EqualsAndHashCode;
+ * import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+ */
 
 
 @Data
@@ -39,8 +42,8 @@ public class Recipe {
 	private List<Instruction> steps;
 	
 	public Recipe() {
-		this.ingredients = new ArrayList<Ingredient>();
-		this.steps = new ArrayList<Instruction>();
+		this.ingredients = new ArrayList<>();
+		this.steps = new ArrayList<>();
 	}
 
 	public Recipe(String title, String source, int difficulty, int time, boolean isPublic) {
@@ -50,8 +53,8 @@ public class Recipe {
 		this.time = time;
 		this.rating = 0;
 		this.isPublic = isPublic;
-		this.ingredients = new ArrayList<Ingredient>();
-		this.steps = new ArrayList<Instruction>();
+		this.ingredients = new ArrayList<>();
+		this.steps = new ArrayList<>();
 	}
 	
 	public Recipe(String title, String source, int difficulty, int time, boolean isPublic, Ingredient[] ingredients, Instruction... steps) {
@@ -89,13 +92,17 @@ public class Recipe {
 	}
 	
 	public void setAnnotations(List<Annotation> annotations) {
-//		this.ingredients.setAnnotations(
-//				annotations.stream()
-//				.filter(a -> a instanceof IngredientAnnotation)
-//				.collect(Collectors.toList()));
-//		this.steps.setAnnotations(
-//				annotations.stream()
-//				.filter(a -> a instanceof InstructionAnnotation)
-//				.collect(Collectors.toList()));
+	/*
+	 * Commented out code
+	 * 
+	 * 	this.ingredients.setAnnotations(
+	 *			annotations.stream()
+	 * 			.filter(a -> a instanceof IngredientAnnotation)
+	 *			.collect(Collectors.toList()));
+	 *	this.steps.setAnnotations(
+	 * 			annotations.stream()
+	 *			.filter(a -> a instanceof InstructionAnnotation)
+	 *			.collect(Collectors.toList()));
+	 */
 	}
 }
