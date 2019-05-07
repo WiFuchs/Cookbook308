@@ -11,6 +11,7 @@ public class LittleChefApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		/* functionality has not been implemented yet */
 	}
 
 }
