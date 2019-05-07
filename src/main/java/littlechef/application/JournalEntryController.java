@@ -1,8 +1,6 @@
 package littlechef.application;
 
 import java.util.List;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -58,17 +56,20 @@ class JournalEntryController {
 	@PutMapping("/journalentries/{id}")
 	JournalEntry replaceJournalEntry(@RequestBody JournalEntry newJournalEntry, @PathVariable Long id) {
 
-//		return repository.findById(id)
-//			.map(recipe -> {
-//				recipe.setName(newRecipe.getName());
-//				recipe.setRole(newRecipe.getRole());
-//				return repository.save(employee);
-//			})
-//			.orElseGet(() -> {
-//				newEmployee.setId(id);
-//				return repository.save(newEmployee);
-//			});
-		
+	/*
+	 * Commented out code, not sure if we will use it in the future
+	 * 
+ 	 *	return repository.findById(id)
+ 	 *		.map(recipe -> {
+	 *			recipe.setName(newRecipe.getName());
+     *				recipe.setRole(newRecipe.getRole());
+     *			return repository.save(employee);
+     *		})
+     *			.orElseGet(() -> {
+     *				newEmployee.setId(id);
+     *				return repository.save(newEmployee);
+     *			});
+	 */	
 		
 		//TODO: implement put
 		

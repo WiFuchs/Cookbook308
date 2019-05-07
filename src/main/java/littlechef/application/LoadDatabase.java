@@ -2,16 +2,14 @@ package littlechef.application;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-//import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+
 
 import littlechef.entities.*;
 import littlechef.repositories.AnnotationRepository;
@@ -19,8 +17,15 @@ import littlechef.repositories.JournalEntryRepository;
 import littlechef.repositories.RecipeRepository;
 import littlechef.repositories.ApplicationUserRepository;
 
-import java.util.*;
-
+/*
+ * unused imports, saved for future use?
+ * 
+ * import java.util.*;
+ * import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+ * import org.springframework.stereotype.Component;
+ * import org.slf4j.LoggerFactory;
+ * import java.util.logging.Logger;
+ */
 
 @Configuration
 @Slf4j
