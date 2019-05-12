@@ -82,7 +82,7 @@ class JournalEntryController {
 	}
 	
 	@GetMapping("/journalentries/user/{id}")
-	JournalEntry First1ByOrderByTimeDesc(@PathVariable Long id) {
+	JournalEntry first1ByOrderByTimeDesc(@PathVariable Long id) {
 		
 		return repository.findFirst1ByUserOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 	}
