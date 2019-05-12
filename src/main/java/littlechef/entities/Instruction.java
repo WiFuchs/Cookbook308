@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+/* import javax.persistence.OneToOne; */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,7 +34,7 @@ public class Instruction {
 	
 	@JsonIgnoreProperties("steps")
 	@OneToMany(mappedBy = "instruction", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<InstructionAnnotation> annotations = new ArrayList<InstructionAnnotation>();
+	private List<InstructionAnnotation> annotations = new ArrayList<>();
 	
 
 	public Instruction() {

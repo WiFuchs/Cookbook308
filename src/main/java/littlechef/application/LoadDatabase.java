@@ -50,14 +50,12 @@ class LoadDatabase {
 		JournalEntry journ = new JournalEntry(rec2, "vegan", 25, 35, 3, 5, "comment", new IngredientAnnotation(3, "ingredient annotation"));
 		journRepo.save(journ);
 		
-		List<Recipe> recipes = new ArrayList<Recipe>();
+		List<Recipe> recipes = new ArrayList<>();
 		recipes.add(rec);
 		recipes.add(rec2);
-		List<JournalEntry> entries = new ArrayList<JournalEntry>();
+		List<JournalEntry> entries = new ArrayList<>();
 		entries.add(journ);
 		
-		return args -> {
-			log.info("\nseeded DB\n");
-		};
+		return args -> log.info("\nseeded DB\n");
 	}
 }

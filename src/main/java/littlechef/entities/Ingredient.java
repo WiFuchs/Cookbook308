@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+/* import javax.persistence.OneToOne; */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -35,7 +35,7 @@ public class Ingredient {
 
 	@JsonIgnoreProperties("ingredients")
 	@OneToMany(mappedBy = "ingredient", orphanRemoval = true, cascade = CascadeType.ALL)
-	private List<IngredientAnnotation> annotations = new ArrayList<IngredientAnnotation>();
+	private List<IngredientAnnotation> annotations = new ArrayList<>();
 
 	public Ingredient() {
 	}
