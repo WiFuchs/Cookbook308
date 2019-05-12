@@ -1,4 +1,4 @@
-package ChefHat.LittleChef;
+package littlechef.tests;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
