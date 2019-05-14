@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import littlechef.entities.JournalEntry;
+import littlechef.exceptions.AccessDeniedException;
 import littlechef.exceptions.JournalEntryNotFoundException;
+import littlechef.repositories.ApplicationUserRepository;
 import littlechef.repositories.JournalEntryRepository;
 
 
@@ -21,20 +24,23 @@ import littlechef.repositories.JournalEntryRepository;
 class JournalEntryController {
 
 	private final JournalEntryRepository repository;
+	private final ApplicationUserRepository users;
 
-	JournalEntryController(JournalEntryRepository repository) {
+	JournalEntryController(JournalEntryRepository repository, ApplicationUserRepository users) {
 		this.repository = repository;
+		this.users = users;
 	}
 
 	// Aggregate root
 
-	@GetMapping("/user/{id}/journalentries")
-	List<JournalEntry> all() {
-		return repository.findAll();
+	@GetMapping("/journalentries")
+	List<JournalEntry> all(@AuthenticationPrincipal String user) {
+		return repository.findByUserID(users.findByUsername(user).getId());
 	}
 
 	@PostMapping("/journalentries")
-	JournalEntry newJournalEntry(@RequestBody JournalEntry newJournalEntry) {
+	JournalEntry newJournalEntry(@AuthenticationPrincipal String user, @RequestBody JournalEntry newJournalEntry) {
+		newJournalEntry.setUserID(users.findByUsername(user).getId());
 		return repository.save(newJournalEntry);
 	}
 
@@ -77,13 +83,21 @@ class JournalEntryController {
 	}
 
 	@DeleteMapping("/journalentries/{id}")
-	void deleteJournalEntry(@PathVariable Long id) {
-		repository.deleteById(id);
+	void deleteJournalEntry(@AuthenticationPrincipal String user, @PathVariable Long id) {
+		JournalEntry journal = repository.findById(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
+		if (journal.getUserID() == users.findByUsername(user).getId()) {
+			repository.deleteById(id);
+		} else {
+			throw new AccessDeniedException();
+		}
 	}
 	
-	@GetMapping("/journalentries/user/{id}")
-	JournalEntry first1ByOrderByTimeDesc(@PathVariable Long id) {
+	@GetMapping("/journalentries/first")
+	JournalEntry first1ByOrderByTimeDesc(@AuthenticationPrincipal String user) {
 		
-		return repository.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
+		long id = users.findByUsername(user).getId();
+		
+		return repository.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(
+						() -> new JournalEntryNotFoundException(id));
 	}
 }
