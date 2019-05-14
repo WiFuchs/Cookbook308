@@ -5,7 +5,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @Entity
@@ -24,7 +26,8 @@ public abstract class Annotation {
     
     public Annotation() {}
 
-    public Annotation(String comment) {
+    @JsonCreator
+    public Annotation(@JsonProperty("comment") String comment) {
         this.comment = comment;
     }
 

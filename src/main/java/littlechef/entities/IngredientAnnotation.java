@@ -5,7 +5,9 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @Entity
@@ -18,7 +20,10 @@ public class IngredientAnnotation extends Annotation {
     
     public IngredientAnnotation() {}
 
-    public IngredientAnnotation(String comment, Ingredient ingredient) {
+    @JsonCreator
+    public IngredientAnnotation(
+    		@JsonProperty("comment") String comment, 
+    		@JsonProperty("ingredient") Ingredient ingredient) {
     	super(comment);
     	this.ingredient = ingredient;
     }

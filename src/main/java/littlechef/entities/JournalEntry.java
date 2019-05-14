@@ -1,6 +1,10 @@
 package littlechef.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +28,7 @@ public class JournalEntry {
 	private String comment;
 	
 	
-	private Long user;
+	private Long userID;
 	
 	@JoinColumn
 	@OneToOne
@@ -42,8 +46,16 @@ public class JournalEntry {
 	public JournalEntry() {
 	}
 
-	public JournalEntry(Recipe recipe, String tags, int prepTime, 
-			int cookTime, int difficultyRating, int rating, String comment, Annotation... annotations) {
+	@JsonCreator
+	public JournalEntry(
+			@JsonProperty("recipe") Recipe recipe, 
+			@JsonProperty("tags") String tags, 
+			@JsonProperty("prepTime") int prepTime, 
+			@JsonProperty("cookTime") int cookTime, 
+			@JsonProperty("difficulty") int difficultyRating, 
+			@JsonProperty("rating") int rating, 
+			@JsonProperty("comment") String comment, 
+			@JsonProperty("annotations") Annotation[] annotations) {
 		this.recipe = recipe;
 		this.timestamp = new Date();
 		this.tags = tags;
@@ -54,6 +66,6 @@ public class JournalEntry {
 		this.comment = comment;
 		this.annotations = Stream.of(annotations).collect(Collectors.toList());
 		this.annotations.forEach(step -> step.setJournal(this));
-		user = (long) 0;
+		this.userID = (long) 0;
 	}
 }

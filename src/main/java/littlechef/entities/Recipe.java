@@ -13,6 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /*
  * Unused imports, here for reference or future use
  * 
@@ -60,7 +63,15 @@ public class Recipe {
 		this.steps = new ArrayList<>();
 	}
 	
-	public Recipe(String title, String source, int difficulty, int time, boolean isPublic, Ingredient[] ingredients, Instruction... steps) {
+	@JsonCreator
+	public Recipe(
+			@JsonProperty("title") String title, 
+			@JsonProperty("source") String source, 
+			@JsonProperty("difficulty") int difficulty, 
+			@JsonProperty("time") int time, 
+			@JsonProperty("isPublic") boolean isPublic, 
+			@JsonProperty("ingredients") Ingredient[] ingredients, 
+			@JsonProperty("steps") Instruction[] steps) {
 		this.title = title;
 		this.source = source;
 		this.difficulty = difficulty;

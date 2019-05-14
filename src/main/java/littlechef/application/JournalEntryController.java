@@ -50,7 +50,7 @@ class JournalEntryController {
 	JournalEntry byIdAndTimeStamp(@PathVariable("id") Long id, 
 			@PathVariable("timestamp") @DateTimeFormat(pattern = "yyyy-MM-dd") Date timestamp) {
 	
-		return repository.findByUserAndTimestamp(id, timestamp).orElseThrow(() -> new JournalEntryNotFoundException(timestamp));
+		return repository.findByUserIDAndTimestamp(id, timestamp).orElseThrow(() -> new JournalEntryNotFoundException(timestamp));
 	}
 
 	@PutMapping("/journalentries/{id}")
@@ -84,6 +84,6 @@ class JournalEntryController {
 	@GetMapping("/journalentries/user/{id}")
 	JournalEntry first1ByOrderByTimeDesc(@PathVariable Long id) {
 		
-		return repository.findFirst1ByUserOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
+		return repository.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 	}
 }

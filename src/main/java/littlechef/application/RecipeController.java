@@ -64,7 +64,7 @@ class RecipeController {
 
 		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
 
-		JournalEntry journ = journals.findFirst1ByUserOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
+		JournalEntry journ = journals.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 		
 		rec.setAnnotations(journ.getAnnotations());
 		

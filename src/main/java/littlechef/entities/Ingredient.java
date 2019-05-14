@@ -16,8 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 /* import javax.persistence.OneToOne; */
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @Entity
@@ -43,7 +45,11 @@ public class Ingredient {
 	public Ingredient() {
 	}
 
-	public Ingredient(int quantity, String units, String ingredient) {
+	@JsonCreator
+	public Ingredient(
+			@JsonProperty("quantity") int quantity, 
+			@JsonProperty("units") String units, 
+			@JsonProperty("ingredient") String ingredient) {
 		this.quantity = quantity;
 		this.units = units;
 		this.ingredient = ingredient;
