@@ -12,13 +12,18 @@ import lombok.Data;
 @Entity
 public class JournalEntry {
 	
-	private @Id @GeneratedValue Long id;
+	@Id
+	@GeneratedValue 
+	private Long id;
+	
 	private int prepTime;
 	private int cookTime;
 	private int difficultyRating;
 	private int rating;
 	private String tags;
 	private String comment;
+	
+	
 	private Long user;
 	
 	@JoinColumn

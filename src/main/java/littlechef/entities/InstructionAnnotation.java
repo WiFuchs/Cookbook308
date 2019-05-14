@@ -16,7 +16,8 @@ public class InstructionAnnotation extends Annotation {
 
     public InstructionAnnotation() {}
     
-    public InstructionAnnotation(long userID, String comment) {
-    	super(userID, comment);
+    public InstructionAnnotation(String comment, Instruction instruction) {
+    	super(comment);
+    	this.instruction = instruction;
     }
 }

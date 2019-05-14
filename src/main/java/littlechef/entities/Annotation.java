@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public abstract class Annotation {
 
-    private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) Long id;
+	@Id 
+	@GeneratedValue
+    private Long id;
+	
     private String comment;
-    private long userID;
     
     @JsonIgnore
     @ManyToOne
@@ -22,9 +24,8 @@ public abstract class Annotation {
     
     public Annotation() {}
 
-    public Annotation(long userID, String comment) {
+    public Annotation(String comment) {
         this.comment = comment;
-        this.userID = userID;
     }
 
 }

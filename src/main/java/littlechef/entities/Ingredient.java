@@ -23,7 +23,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class Ingredient {
 
-	private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) Long id;
+	@Id 
+	@GeneratedValue
+	private Long id;
+	
 	private int quantity;
 	private String units;
 	private String ingredient;

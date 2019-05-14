@@ -25,7 +25,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Recipe {
 
-	private @Id @GeneratedValue Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	private String title;
 	private String source;
 	private int rating;

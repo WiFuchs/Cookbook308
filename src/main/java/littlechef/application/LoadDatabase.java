@@ -42,19 +42,15 @@ class LoadDatabase {
 		Ingredient ing = new Ingredient(3, "cups", "third test");
 		rec2.addIngredient(ing);
 		Instruction instr = new Instruction("Do this thing");
-		instr.addAnnotation(new InstructionAnnotation(1, "Im an annotations"));
 		rec2.addStep(instr);
 		rec2.setUserID(1);
 		recRepo.save(rec2);
 		
-		JournalEntry journ = new JournalEntry(rec2, "vegan", 25, 35, 3, 5, "comment", new IngredientAnnotation(3, "ingredient annotation"));
-		journRepo.save(journ);
-		
-		List<Recipe> recipes = new ArrayList<>();
-		recipes.add(rec);
-		recipes.add(rec2);
-		List<JournalEntry> entries = new ArrayList<>();
-		entries.add(journ);
+//		List<Recipe> recipes = new ArrayList<>();
+//		recipes.add(rec);
+//		recipes.add(rec2);
+//		List<JournalEntry> entries = new ArrayList<>();
+//		entries.add(journ);
 		
 		return args -> log.info("\nseeded DB\n");
 	}

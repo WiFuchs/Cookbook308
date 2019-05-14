@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import static littlechef.security.SecurityConstants.SIGN_UP_URL;
+import static littlechef.security.SecurityConstants.LOG_IN_URL;
+
 
 @EnableWebSecurity
 @Configuration
@@ -32,7 +34,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(SIGN_UP_URL, LOG_IN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

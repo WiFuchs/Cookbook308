@@ -23,7 +23,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class Instruction {
 
-	private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private String step;
 

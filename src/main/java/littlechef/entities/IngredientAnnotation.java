@@ -8,7 +8,6 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
 @Entity
 public class IngredientAnnotation extends Annotation {
 
@@ -19,7 +18,8 @@ public class IngredientAnnotation extends Annotation {
     
     public IngredientAnnotation() {}
 
-    public IngredientAnnotation(long userID, String comment) {
-    	super(userID, comment);
+    public IngredientAnnotation(String comment, Ingredient ingredient) {
+    	super(comment);
+    	this.ingredient = ingredient;
     }
 }
