@@ -35,10 +35,10 @@ class LoadDatabase {
 	CommandLineRunner initDatabase(RecipeRepository recRepo, JournalEntryRepository journRepo, AnnotationRepository annotRepo, ApplicationUserRepository userRepo) {
 		
 		
-		Recipe rec = new Recipe("Chicken", "manual", 5, 45, true);
+		Recipe rec = new Recipe("Chicken", "manual", 5, 45, 0, true);
 		recRepo.save(rec);
 		
-		Recipe rec2 = new Recipe("Chicken", "manual", 5, 45, true);
+		Recipe rec2 = new Recipe("Chicken", "manual", 5, 45, 0, true);
 		Ingredient ing = new Ingredient(3, "cups", "third test");
 		rec2.addIngredient(ing);
 		Instruction instr = new Instruction("Do this thing");

@@ -36,7 +36,8 @@ public class Recipe {
 	private String source;
 	private int rating;
 	private int difficulty;
-	private int time;
+	private int prepTime;
+	private int cookTime;
 	private boolean isPublic;
 	
 	private long userID;
@@ -52,11 +53,12 @@ public class Recipe {
 		this.steps = new ArrayList<>();
 	}
 
-	public Recipe(String title, String source, int difficulty, int time, boolean isPublic) {
+	public Recipe(String title, String source, int difficulty, int prepTime, int cookTime, boolean isPublic) {
 		this.title = title;
 		this.source = source;
 		this.difficulty = difficulty;
-		this.time = time;
+		this.prepTime = prepTime;
+		this.cookTime = cookTime;
 		this.rating = 0;
 		this.isPublic = isPublic;
 		this.ingredients = new ArrayList<>();
@@ -68,14 +70,16 @@ public class Recipe {
 			@JsonProperty("title") String title, 
 			@JsonProperty("source") String source, 
 			@JsonProperty("difficulty") int difficulty, 
-			@JsonProperty("time") int time, 
+			@JsonProperty("prepTime") int prepTime, 
+			@JsonProperty("cookTime") int cookTime,
 			@JsonProperty("isPublic") boolean isPublic, 
 			@JsonProperty("ingredients") Ingredient[] ingredients, 
 			@JsonProperty("steps") Instruction[] steps) {
 		this.title = title;
 		this.source = source;
 		this.difficulty = difficulty;
-		this.time = time;
+		this.prepTime = prepTime;
+		this.cookTime = cookTime;
 		this.rating = 0;
 		this.isPublic = isPublic;
 		this.ingredients = Stream.of(ingredients).collect(Collectors.toList());
