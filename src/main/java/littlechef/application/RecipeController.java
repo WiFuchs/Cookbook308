@@ -24,6 +24,7 @@ import littlechef.entities.IngredientAnnotation;
 import littlechef.entities.Instruction;
 import littlechef.entities.JournalEntry;
 import littlechef.entities.Recipe;
+import littlechef.exceptions.AccessDeniedException;
 import littlechef.exceptions.JournalEntryNotFoundException;
 import littlechef.exceptions.RecipeNotFoundException;
 import littlechef.repositories.ApplicationUserRepository;
@@ -52,10 +53,6 @@ class RecipeController {
 		return repository.findByUserID(users.findByUsername(user).getId());
 	}
 	
-	@GetMapping("user/{id}/recipes")
-	List<Recipe> all(@AuthenticationPrincipal String user, @PathVariable Long id) {
-		return repository.findByUserID(id);
-	}
 
 	@PostMapping("/recipes")
 	Recipe newRecipe(@AuthenticationPrincipal String user, @RequestBody Recipe newRecipe) {
@@ -65,8 +62,9 @@ class RecipeController {
 
 	// Single item
 
-	@GetMapping("user/{id}/recipes/{rid}")
-	Recipe one(@PathVariable("id") Long id, @PathVariable("rid") Long rid) {
+	@GetMapping("recipes/{rid}")
+	Recipe one(@AuthenticationPrincipal String user, @PathVariable("rid") Long rid) {
+		long id = users.findByUsername(user).getId();
 
 		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
 
@@ -74,47 +72,47 @@ class RecipeController {
 		
 		rec.setAnnotations(journ.getAnnotations());
 		
-//		rec.getIngredients().forEach((ing) -> ing.setAnnotations(
-//				ing.getAnnotations().stream().filter((a) -> a.getUserID() == id).collect(Collectors.toList())));
-//				//new ArrayList<IngredientAnnotation>(Arrays.asList(new IngredientAnnotation()))));
-		
 		return rec;
 	}
 
 	@PutMapping("/recipes/{id}")
-	Recipe replaceRecipe(@RequestBody Recipe newRecipe, @PathVariable Long id) {
-
-//		return repository.findById(id)
-//			.map(recipe -> {
-//				recipe.setName(newRecipe.getName());
-//				recipe.setRole(newRecipe.getRole());
-//				return repository.save(employee);
-//			})
-//			.orElseGet(() -> {
-//				newEmployee.setId(id);
-//				return repository.save(newEmployee);
-//			});
+	Recipe replaceRecipe(@AuthenticationPrincipal String user, @RequestBody Recipe newRecipe, @PathVariable Long id) {
+		long uid = users.findByUsername(user).getId();
 		
+		Recipe rec = repository.findById(id).orElseGet(() -> {
+			newRecipe.setId(id);
+			newRecipe.setUserID(uid);
+			return repository.save(newRecipe);
+		});
 		
-		//TODO: implement put
+		if (rec.getUserID() != uid) {
+			throw new AccessDeniedException();
+		}
 		
-		return repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
+		rec.update(newRecipe);
+		return repository.save(rec);
 	}
 	
 	@GetMapping("/recipes/user/{id}") 
 	List<Recipe> byUserId(@PathVariable Long id) {
-		
-		return repository.findByUserID(id);
+		//Return only public recipes for other users
+		return repository.findByUserID(id).stream().filter(x -> x.isPublic()).collect(Collectors.toList());
 		
 	}
 
 	@DeleteMapping("/recipes/{id}")
-	void deleteEmployee(@PathVariable Long id) {
+	void deleteEmployee(@AuthenticationPrincipal String user, @PathVariable Long id) {
+		long uid = users.findByUsername(user).getId();
+		Recipe rec = repository.findById(id).orElseThrow(() -> new RecipeNotFoundException(id));
+		if (rec.getUserID() != uid) {
+			throw new AccessDeniedException();
+		}
 		repository.deleteById(id);
 	}
 	
 	@PostMapping("/recipes/populate")
-	void populate() {
+	void populate(@AuthenticationPrincipal String user) {
+		long uid = users.findByUsername(user).getId();
 		
 		try {
 			HttpResponse<JsonNode> response = Unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1")
@@ -137,6 +135,7 @@ class RecipeController {
 			Instruction[] instructions = parseInstr(instr);
 			
 			Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions);
+			newRecipe.setUserID(uid);
 			repository.save(newRecipe);
 			
 		}

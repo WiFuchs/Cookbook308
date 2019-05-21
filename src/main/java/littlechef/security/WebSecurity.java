@@ -17,6 +17,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import static littlechef.security.SecurityConstants.SIGN_UP_URL;
+
+import java.util.Arrays;
+
 import static littlechef.security.SecurityConstants.LOG_IN_URL;
 
 
@@ -51,7 +54,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    CorsConfiguration conf = new CorsConfiguration().applyPermitDefaultValues();
+    conf.setAllowedMethods(Arrays.asList("POST","PUT","GET","DELETE"));
+    source.registerCorsConfiguration("/**", conf);
     return source;
   }
 }

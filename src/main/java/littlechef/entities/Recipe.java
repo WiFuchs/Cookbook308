@@ -123,4 +123,34 @@ public class Recipe {
 	 *			.collect(Collectors.toList()));
 	 */
 	}
+	
+	public void update(Recipe rec) {
+		this.title = rec.title;
+		this.cookTime = rec.cookTime;
+		this.difficulty = rec.difficulty;
+		this.isPublic = rec.isPublic;
+		this.prepTime = rec.prepTime;
+		this.rating = rec.rating;
+		this.source = rec.source;
+		
+		
+//		this.steps.forEach(stp -> {
+//			if(!rec.steps.stream().map(s->s.getStep()).collect(Collectors.toList()).contains(stp.getStep())) {
+//				this.removeStep(stp);
+//			}
+//		});
+		
+		for (int i = this.ingredients.size()-1; i >= 0; i--) {
+			removeIngredient(this.ingredients.get(i));
+		}
+		for (Ingredient newIng : rec.ingredients) {
+			this.addIngredient(newIng);
+		}
+		for (int i = this.steps.size()-1; i >= 0; i--) {
+			removeStep(this.steps.get(i));
+		}
+		for (Instruction newStp : rec.steps) {
+			this.addStep(newStp);
+		}
+	}
 }
