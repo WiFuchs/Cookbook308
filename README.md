@@ -1,10 +1,20 @@
 # Cookbook308
 Java App to keep track of recipes
 
-##API Endpoints
+## API Endpoints
 All API endpoints are described here
 
-###Recipe
+### User
+* `/users/sign-up` create a new user, username must be unique
+* `/login` login user, returns JWT as Authorization header
+```javascript
+{
+   "username":username,
+   "password":password
+}
+```
+
+### Recipe
 
 * `GET /recipes`
    return list of all recipes owned/saved by the user
@@ -18,4 +28,38 @@ All API endpoints are described here
    update the recipe identified by {id}, if it is owned by the user. Create recipe if none exists. Has the side effect of deleting annotations annotations associated with the recipe
 * `DELETE /recipes/{id}`
    delete the recipe identified by {id}, if it is owned by the user.
+```javascript
+{
+   "title": "Prototypical Recipe (create)",
+   "cookTime": 15,
+   "prepTime": 10,
+   "difficulty": 10,
+   "ingredients": [
+      {
+         "quantity": 5,
+         "units": "cups",
+         "ingredient": "Magic"
+      },
+      {
+         "quantity": 5,
+         "units": "Pounds",
+         "ingredient": "Butter"
+      }
+   ],
+   "isPublic": true,
+   "rating": 5,
+   "source": "manual",
+   "steps": [
+      {
+         "step": "Soften Butter"
+      },
+      {
+         "step": "Add Magic"
+      },
+      {
+         "step": "Season to taste"
+      }
+   ]
+}
+```
    
