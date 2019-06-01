@@ -32,13 +32,14 @@ import littlechef.repositories.JournalEntryRepository;
 import littlechef.repositories.RecipeRepository;
 
 
-
 @RestController
 class RecipeController {
 
 	private final RecipeRepository repository;
 	private final JournalEntryRepository journals;
 	private final ApplicationUserRepository users;
+	
+	private static final int NUM_REQUESTS = 50;
 
 	RecipeController(RecipeRepository repository, JournalEntryRepository journals, ApplicationUserRepository users) {
 		this.repository = repository;
@@ -121,23 +122,33 @@ class RecipeController {
 					.asJson();
 			
 			JSONObject json = response.getBody().getObject();
-					
-			// get ingredients
-			JSONArray arr = json.getJSONArray("extendedIngredients");
-			Ingredient[] ingredients = new Ingredient[arr.length()];
-			for(int i = 0; i < arr.length(); i++) {
-				JSONObject ithIngr = arr.getJSONObject(i);
-				ingredients[i] = new Ingredient(ithIngr.getInt("amount"), ithIngr.getString("cup"), ithIngr.getString("name"));
+			
+			for(int i = 0; i < NUM_REQUESTS; i++) {
+				
+				json = json.getJSONArray("recipes").getJSONObject(i);
+			
+						
+				// get ingredients
+				JSONArray arr = json.getJSONArray("extendedIngredients");
+				Ingredient[] ingredients = new Ingredient[arr.length()];
+				for(int j = 0; j < arr.length(); j++) {
+					JSONObject jthIngr = arr.getJSONObject(j);
+					ingredients[j] = new Ingredient(jthIngr.getInt("amount"), jthIngr.getString("unit"), jthIngr.getString("name"));
+				}
+				
+				// get instructions
+				String instr = json.getString("instructions");
+				Instruction[] instructions = parseInstr(instr);
+				
+				//get tags
+				String tags = getTags(json);
+				
+				Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions, tags);
+				newRecipe.setUserID(uid);
+				
+				repository.save(newRecipe);
+					    
 			}
-			
-			// get instructions
-			String instr = json.getString("instructions");
-			Instruction[] instructions = parseInstr(instr);
-			
-			Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions);
-			newRecipe.setUserID(uid);
-			repository.save(newRecipe);
-			
 		}
 	    catch (UnirestException e) {
 			// TODO Auto-generated catch block
@@ -153,5 +164,45 @@ class RecipeController {
 		}
 		return instructions;
 		
+	}
+	
+	private String getTags(JSONObject json) {
+		
+		String tags = "";
+		if(json.getBoolean("vegetarian") == true) {
+			tags += "vegetarian|";
+		}
+		if(json.getBoolean("vegan") == true) {
+			tags += "vegan|";
+		}
+		if(json.getBoolean("glutenFree") == true) {
+			tags += "glutenFree|";
+		}
+		if(json.getBoolean("dairyFree") == true) {
+			tags += "dairyFree|";
+		}
+		if(json.getBoolean("veryHealthy") == true) {
+			tags += "veryHealthy|";
+		}
+		if(json.getBoolean("cheap") == true) {
+			tags += "cheap|";
+		}
+		if(json.getBoolean("veryPopular") == true) {
+			tags += "veryPopular|";
+		}
+		if(json.getBoolean("sustainable") == true) {
+			tags += "sustainable|";
+		}
+		if(json.getBoolean("lowFodmap") == true) {
+			tags += "lowFodmap|";
+		}
+		if(json.getBoolean("ketogenic") == true) {
+			tags += "ketogenic|";
+		}
+		if(json.getBoolean("whole30") == true) {
+			tags += "whole30";
+		}
+		
+		return tags;
 	}
 }
