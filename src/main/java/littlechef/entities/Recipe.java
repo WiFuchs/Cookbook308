@@ -43,6 +43,7 @@ public class Recipe {
 	//TODO add tags
 	
 	private long userID;
+	private String username;
 	
 	@OneToMany(mappedBy = "recipe", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Ingredient> ingredients;
@@ -65,6 +66,7 @@ public class Recipe {
 		this.isPublic = isPublic;
 		this.ingredients = new ArrayList<>();
 		this.steps = new ArrayList<>();
+		this.username = "";
 	}
 	
 	@JsonCreator
