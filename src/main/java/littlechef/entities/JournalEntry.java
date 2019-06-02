@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+import java.lang.Long;
 import lombok.Data;
 
 @Data
@@ -30,9 +30,9 @@ public class JournalEntry {
 	
 	private Long userID;
 	
-	@JoinColumn
-	@OneToOne
-	private Recipe recipe;
+//	@JoinColumn
+//	@OneToOne
+	private Long recipe;
 	
 	/* Date format will be mm/dd/yyyy, hh:mm am/pm */
 	@Basic
@@ -48,7 +48,7 @@ public class JournalEntry {
 
 	@JsonCreator
 	public JournalEntry(
-			@JsonProperty("recipe") Recipe recipe, 
+			@JsonProperty("recipe") Long recipe, 
 			@JsonProperty("tags") String tags, 
 			@JsonProperty("prepTime") int prepTime, 
 			@JsonProperty("cookTime") int cookTime, 

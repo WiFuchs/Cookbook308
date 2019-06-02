@@ -116,16 +116,16 @@ class RecipeController {
 		long uid = users.findByUsername(user).getId();
 		
 		try {
-			HttpResponse<JsonNode> response = Unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1")
+			HttpResponse<JsonNode> response = Unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=50")
 					.header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
 					.header("X-RapidAPI-Key", "ffd8925755msh676e8efd7c5ba06p17b57bjsn1be328b133cf")
 					.asJson();
 			
-			JSONObject json = response.getBody().getObject();
+			JSONObject resp = response.getBody().getObject();
 			
 			for(int i = 0; i < NUM_REQUESTS; i++) {
 				
-				json = json.getJSONArray("recipes").getJSONObject(i);
+				JSONObject json = resp.getJSONArray("recipes").getJSONObject(i);
 			
 						
 				// get ingredients
