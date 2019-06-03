@@ -19,7 +19,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class LittleChefApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LittleChefApplication.class, args);
+		if(args == null) {
+			System.out.println("Command-line arguments passed to Spring are null");
+			System.exit(0);
+		}
+		else {
+			SpringApplication.run(LittleChefApplication.class, args);
+		}
 	}
 
 	@Bean
