@@ -172,7 +172,7 @@ class RecipeController {
 	
 	private String getTags(JSONObject json) {
 		
-		String tags = "";
+		StringBuilder tags = new StringBuilder();
 		String[] tagsArray = {
 				"vegetarian",
 				"vegan",
@@ -188,10 +188,9 @@ class RecipeController {
 			};
 		for(int i = 0; i < tagsArray.length; i++) {
 			if(json.getBoolean(tagsArray[i])) {
-				tags += (tagsArray[i] + "|");
+				tags.append(tagsArray[i] + "|");
 			}
 		}
-		
-		return tags;
+		return tags.toString();
 	}
 }
