@@ -14,5 +14,6 @@ import littlechef.entities.Recipe;
 public interface JournalEntryRepository extends JpaRepository<JournalEntry, Long> {
 	List<JournalEntry> findByUserID(Long id);
 	Optional<JournalEntry> findByUserIDAndTimestamp(Long id, Date timestamp);
-	Optional<JournalEntry> findFirst1ByUserIDOrderByTimestampDesc(Long id);
+	Optional<JournalEntry> findFirst1ByRecipeOrderByTimestampDesc(long id);
+	Optional<JournalEntry> findFirst1ByUserIDOrderByTimestampDesc(long id);
 }

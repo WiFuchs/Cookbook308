@@ -49,7 +49,10 @@ class RecipeController {
 
 	@GetMapping("/recipes")
 	List<Recipe> all(@AuthenticationPrincipal String user) {
-		return repository.findByUserID(users.findByUsername(user).getId());
+		List<Recipe> recs = repository.findByUserID(users.findByUsername(user).getId());
+		recs.forEach(r -> journals.findFirst1ByRecipeOrderByTimestampDesc(r.getId())
+				.ifPresent(j -> r.setAnnotations(j.getId())));
+		return recs;
 	}
 	
 
@@ -68,9 +71,8 @@ class RecipeController {
 		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
 
 		//Definitely works!
-		JournalEntry journ = journals.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
-		
-		rec.setAnnotations(journ.getId());
+		journals.findFirst1ByRecipeOrderByTimestampDesc(rid).ifPresent(journ ->
+			rec.setAnnotations(journ.getId()));
 		
 		return rec;
 	}
