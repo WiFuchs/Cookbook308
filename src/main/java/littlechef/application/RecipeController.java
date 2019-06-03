@@ -50,9 +50,6 @@ class RecipeController {
 	@GetMapping("/recipes")
 	List<Recipe> all(@AuthenticationPrincipal String user) {
 		return repository.findByUserID(users.findByUsername(user).getId());
-		
-		
-		//return recipes;
 	}
 	
 

@@ -1,27 +1,17 @@
 package littlechef.entities;
 
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-/*
- * Unused imports, here for reference or future use
- * 
- * import lombok.EqualsAndHashCode;
- * import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
- */
 
 
 @Data
