@@ -176,37 +176,37 @@ class RecipeController {
 	private String getTags(JSONObject json) {
 		
 		String tags = "";
-		if(json.getBoolean("vegetarian") == true) {
+		if(json.getBoolean("vegetarian")) {
 			tags += "vegetarian|";
 		}
-		if(json.getBoolean("vegan") == true) {
+		if(json.getBoolean("vegan")) {
 			tags += "vegan|";
 		}
-		if(json.getBoolean("glutenFree") == true) {
+		if(json.getBoolean("glutenFree")) {
 			tags += "glutenFree|";
 		}
-		if(json.getBoolean("dairyFree") == true) {
+		if(json.getBoolean("dairyFree")) {
 			tags += "dairyFree|";
 		}
-		if(json.getBoolean("veryHealthy") == true) {
+		if(json.getBoolean("veryHealthy")) {
 			tags += "veryHealthy|";
 		}
-		if(json.getBoolean("cheap") == true) {
+		if(json.getBoolean("cheap")) {
 			tags += "cheap|";
 		}
-		if(json.getBoolean("veryPopular") == true) {
+		if(json.getBoolean("veryPopular")) {
 			tags += "veryPopular|";
 		}
-		if(json.getBoolean("sustainable") == true) {
+		if(json.getBoolean("sustainable")) {
 			tags += "sustainable|";
 		}
-		if(json.getBoolean("lowFodmap") == true) {
+		if(json.getBoolean("lowFodmap")) {
 			tags += "lowFodmap|";
 		}
-		if(json.getBoolean("ketogenic") == true) {
+		if(json.getBoolean("ketogenic")) {
 			tags += "ketogenic|";
 		}
-		if(json.getBoolean("whole30") == true) {
+		if(json.getBoolean("whole30")) {
 			tags += "whole30";
 		}
 		

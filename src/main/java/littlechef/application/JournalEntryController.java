@@ -2,7 +2,6 @@ package littlechef.application;
 
 import java.util.List;
 import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,13 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import littlechef.entities.JournalEntry;
-import littlechef.entities.Recipe;
 import littlechef.exceptions.JournalEntryNotAuthenticatedException;
-//import littlechef.exceptions.AccessDeniedException;
 import littlechef.exceptions.JournalEntryNotFoundException;
-import littlechef.exceptions.RecipeNotAuthenticatedException;
 import littlechef.repositories.ApplicationUserRepository;
 import littlechef.repositories.JournalEntryRepository;
 
