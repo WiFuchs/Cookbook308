@@ -125,13 +125,6 @@ public class Recipe {
 		this.rating = rec.rating;
 		this.source = rec.source;
 		
-		
-//		this.steps.forEach(stp -> {
-//			if(!rec.steps.stream().map(s->s.getStep()).collect(Collectors.toList()).contains(stp.getStep())) {
-//				this.removeStep(stp);
-//			}
-//		});
-		
 		for (int i = this.ingredients.size()-1; i >= 0; i--) {
 			removeIngredient(this.ingredients.get(i));
 		}
