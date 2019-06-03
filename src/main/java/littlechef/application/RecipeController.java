@@ -70,13 +70,7 @@ class RecipeController {
 		//Definitely works!
 		JournalEntry journ = journals.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 		
-		
-		//TODO
-		List<Annotation> annotations = Stream.concat(
-				journ.getStepAnnotations().stream(), 
-				journ.getIngredientAnnotations().stream())
-				.collect(Collectors.toList());
-		rec.setAnnotations(annotations);
+		rec.setAnnotations(journ.getId());
 		
 		return rec;
 	}

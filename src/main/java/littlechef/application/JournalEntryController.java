@@ -77,8 +77,9 @@ class JournalEntryController {
 			updatedJournalEntry.setDifficultyRating(newJournalEntry.getDifficultyRating());
 			updatedJournalEntry.setRating(newJournalEntry.getRating());
 			updatedJournalEntry.setComment(newJournalEntry.getComment());
-			updatedJournalEntry.setStepAnnotations(newJournalEntry.getStepAnnotations());
-			updatedJournalEntry.setIngredientAnnotations(newJournalEntry.getIngredientAnnotations());
+			//TODO fix so can uncomment
+//			updatedJournalEntry.setStepAnnotations(newJournalEntry.getStepAnnotations());
+//			updatedJournalEntry.setIngredientAnnotations(newJournalEntry.getIngredientAnnotations());
 			return repository.save(updatedJournalEntry);
 		}
 		else

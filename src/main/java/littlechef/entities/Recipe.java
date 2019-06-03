@@ -108,15 +108,15 @@ public class Recipe {
 		step.setRecipe(null);
 	}
 	
-	public void setAnnotations(List<Annotation> annotations) {
-//		this.ingredients.setAnnotations(
-//				annotations.stream()
-//				.filter(a -> a instanceof IngredientAnnotation)
-//				.collect(Collectors.toList()));
-//		this.steps.setAnnotations(
-//				annotations.stream()
-//				.filter(a -> a instanceof InstructionAnnotation)
-//				.collect(Collectors.toList()));
+	public void setAnnotations(Long jid) {
+		this.ingredients.forEach(ing -> {
+			ing.setAnnotations(ing.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
+				.collect(Collectors.toList()));
+		});
+		this.steps.forEach(stp -> {
+			stp.setAnnotations(stp.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
+				.collect(Collectors.toList()));
+		});
 	}
 	
 	public void update(Recipe rec) {

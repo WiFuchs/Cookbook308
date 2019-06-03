@@ -35,11 +35,11 @@ public class JournalEntry {
 	/* TODO: remove this, will be provided by the front end */
 	/* Date format will be mm/dd/yyyy, hh:mm am/pm */
 	@Basic
-	@Temporal(TemporalType.DATE)
-	private Date timestamp;
+	private String timestamp;
 	
 	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<InstructionAnnotation> stepAnnotations;
+	
 	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<IngredientAnnotation> ingredientAnnotations;
 	
@@ -57,9 +57,10 @@ public class JournalEntry {
 			@JsonProperty("rating") int rating, 
 			@JsonProperty("comment") String comment, 
 			@JsonProperty("stepannotations") InstructionAnnotation[] stepAnnotations,
-			@JsonProperty("ingredientannotations") IngredientAnnotation[] ingredientAnnotations) {
+			@JsonProperty("ingredientannotations") IngredientAnnotation[] ingredientAnnotations,
+			@JsonProperty("date") String timestamp) {
 		this.recipe = recipeID;
-		this.timestamp = new Date();
+		this.timestamp = timestamp;
 		this.tags = tags;
 		this.prepTime = prepTime;
 		this.cookTime = cookTime;

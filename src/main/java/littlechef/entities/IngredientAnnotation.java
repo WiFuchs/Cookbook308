@@ -15,14 +15,15 @@ public class IngredientAnnotation extends Annotation {
 	//@ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn
     //@JsonIgnoreProperties("ingredientannotations")
-    private Long ingredientID;
-    
+	
+	public Long ingredientID;
+	
     public IngredientAnnotation() {}
 
     @JsonCreator
     public IngredientAnnotation(
     		@JsonProperty("comment") String comment, 
-    		@JsonProperty("ingredientid") Long ingredientID) {
+    		@JsonProperty("ingid") Long ingredientID) {
     	super(comment);
     	this.ingredientID = ingredientID;
     }
