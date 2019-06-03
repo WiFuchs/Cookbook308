@@ -173,38 +173,23 @@ class RecipeController {
 	private String getTags(JSONObject json) {
 		
 		String tags = "";
-		if(json.getBoolean("vegetarian")) {
-			tags += "vegetarian|";
-		}
-		if(json.getBoolean("vegan")) {
-			tags += "vegan|";
-		}
-		if(json.getBoolean("glutenFree")) {
-			tags += "glutenFree|";
-		}
-		if(json.getBoolean("dairyFree")) {
-			tags += "dairyFree|";
-		}
-		if(json.getBoolean("veryHealthy")) {
-			tags += "veryHealthy|";
-		}
-		if(json.getBoolean("cheap")) {
-			tags += "cheap|";
-		}
-		if(json.getBoolean("veryPopular")) {
-			tags += "veryPopular|";
-		}
-		if(json.getBoolean("sustainable")) {
-			tags += "sustainable|";
-		}
-		if(json.getBoolean("lowFodmap")) {
-			tags += "lowFodmap|";
-		}
-		if(json.getBoolean("ketogenic")) {
-			tags += "ketogenic|";
-		}
-		if(json.getBoolean("whole30")) {
-			tags += "whole30";
+		String[] tagsArray = {
+				"vegetarian",
+				"vegan",
+				"glutenFree",
+				"dairyFree",
+				"veryHealthy",
+				"cheap",
+				"veryPopular",
+				"sustainable",
+				"lowFodmap",
+				"ketogenic",
+				"whole30" 
+			};
+		for(int i = 0; i < tagsArray.length; i++) {
+			if(json.getBoolean(tagsArray[i])) {
+				tags += (tagsArray[i] + "|");
+			}
 		}
 		
 		return tags;
