@@ -1,6 +1,7 @@
 package littlechef.entities;
 
 import lombok.Data;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -11,18 +12,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class InstructionAnnotation extends Annotation {
 
-    @ManyToOne
-    @JoinColumn
-    @JsonIgnoreProperties("annotations")
-    private Instruction instruction;
+	//@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn
+    //@JsonIgnoreProperties("stepannotations")
+    private Long stepID;
 
     public InstructionAnnotation() {}
     
     @JsonCreator
     public InstructionAnnotation(
     		@JsonProperty("comment") String comment, 
-    		@JsonProperty("instruction") Instruction instruction) {
+    		@JsonProperty("stepid") Long stepID) {
     	super(comment);
-    	this.instruction = instruction;
+    	this.stepID = stepID;
     }
 }

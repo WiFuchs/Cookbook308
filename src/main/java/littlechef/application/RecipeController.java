@@ -1,9 +1,8 @@
 package littlechef.application;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,9 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mashape.unirest.http.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import littlechef.entities.ApplicationUser;
+import littlechef.entities.Annotation;
 import littlechef.entities.Ingredient;
-import littlechef.entities.IngredientAnnotation;
 import littlechef.entities.Instruction;
 import littlechef.entities.JournalEntry;
 import littlechef.entities.Recipe;
@@ -52,6 +50,9 @@ class RecipeController {
 	@GetMapping("/recipes")
 	List<Recipe> all(@AuthenticationPrincipal String user) {
 		return repository.findByUserID(users.findByUsername(user).getId());
+		
+		
+		//return recipes;
 	}
 	
 
@@ -69,9 +70,15 @@ class RecipeController {
 
 		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
 
+		//Definitely works!
 		JournalEntry journ = journals.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 		
-		rec.setAnnotations(journ.getAnnotations());
+		//TODO
+		List<Annotation> annotations = Stream.concat(
+				journ.getStepAnnotations().stream(), 
+				journ.getIngredientAnnotations().stream())
+				.collect(Collectors.toList());
+		rec.setAnnotations(annotations);
 		
 		return rec;
 	}

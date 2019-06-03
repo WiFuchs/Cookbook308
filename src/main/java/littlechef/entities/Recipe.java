@@ -116,18 +116,14 @@ public class Recipe {
 	}
 	
 	public void setAnnotations(List<Annotation> annotations) {
-	/*
-	 * Commented out code
-	 * 
-	 * 	this.ingredients.setAnnotations(
-	 *			annotations.stream()
-	 * 			.filter(a -> a instanceof IngredientAnnotation)
-	 *			.collect(Collectors.toList()));
-	 *	this.steps.setAnnotations(
-	 * 			annotations.stream()
-	 *			.filter(a -> a instanceof InstructionAnnotation)
-	 *			.collect(Collectors.toList()));
-	 */
+//		this.ingredients.setAnnotations(
+//				annotations.stream()
+//				.filter(a -> a instanceof IngredientAnnotation)
+//				.collect(Collectors.toList()));
+//		this.steps.setAnnotations(
+//				annotations.stream()
+//				.filter(a -> a instanceof InstructionAnnotation)
+//				.collect(Collectors.toList()));
 	}
 	
 	public void update(Recipe rec) {

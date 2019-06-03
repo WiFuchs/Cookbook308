@@ -30,33 +30,37 @@ public class JournalEntry {
 	
 	private Long userID;
 	
-//	@JoinColumn
-//	@OneToOne
+	//@JoinColumn
+	//@OneToOne
 	private Long recipe;
-	
+
+	/* TODO: remove this, will be provided by the front end */
 	/* Date format will be mm/dd/yyyy, hh:mm am/pm */
 	@Basic
 	@Temporal(TemporalType.DATE)
 	private Date timestamp;
 	
-	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL) 
-	private List<Annotation> annotations;
+	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<InstructionAnnotation> stepAnnotations;
+	@OneToMany(mappedBy = "journal", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<IngredientAnnotation> ingredientAnnotations;
+	
 	
 	/* default constructor */
-	public JournalEntry() {
-	}
+	public JournalEntry() {}
 
 	@JsonCreator
 	public JournalEntry(
-			@JsonProperty("recipe") Long recipe, 
+			@JsonProperty("recipe") Long recipeID, 
 			@JsonProperty("tags") String tags, 
 			@JsonProperty("prepTime") int prepTime, 
 			@JsonProperty("cookTime") int cookTime, 
 			@JsonProperty("difficulty") int difficultyRating, 
 			@JsonProperty("rating") int rating, 
 			@JsonProperty("comment") String comment, 
-			@JsonProperty("annotations") Annotation[] annotations) {
-		this.recipe = recipe;
+			@JsonProperty("stepannotations") InstructionAnnotation[] stepAnnotations,
+			@JsonProperty("ingredientannotations") IngredientAnnotation[] ingredientAnnotations) {
+		this.recipe = recipeID;
 		this.timestamp = new Date();
 		this.tags = tags;
 		this.prepTime = prepTime;
@@ -64,8 +68,10 @@ public class JournalEntry {
 		this.difficultyRating = difficultyRating;
 		this.rating = rating;
 		this.comment = comment;
-		this.annotations = Stream.of(annotations).collect(Collectors.toList());
-		this.annotations.forEach(step -> step.setJournal(this));
+		this.ingredientAnnotations = Stream.of(ingredientAnnotations).collect(Collectors.toList());
+		this.ingredientAnnotations.forEach(ingredient -> ingredient.setJournal(this));
+		this.stepAnnotations = Stream.of(stepAnnotations).collect(Collectors.toList());
+		this.stepAnnotations.forEach(instruction -> instruction.setJournal(this));
 		this.userID = (long) 0;
 	}
 }

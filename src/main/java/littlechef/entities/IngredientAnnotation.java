@@ -1,7 +1,6 @@
 package littlechef.entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -13,18 +12,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class IngredientAnnotation extends Annotation {
 
-    @ManyToOne
-    @JoinColumn
-    @JsonIgnoreProperties("annotations")
-    private Ingredient ingredient;
+	//@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn
+    //@JsonIgnoreProperties("ingredientannotations")
+    private Long ingredientID;
     
     public IngredientAnnotation() {}
 
     @JsonCreator
     public IngredientAnnotation(
     		@JsonProperty("comment") String comment, 
-    		@JsonProperty("ingredient") Ingredient ingredient) {
+    		@JsonProperty("ingredientid") Long ingredientID) {
     	super(comment);
-    	this.ingredient = ingredient;
+    	this.ingredientID = ingredientID;
     }
 }

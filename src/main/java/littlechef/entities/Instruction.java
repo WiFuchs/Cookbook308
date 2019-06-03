@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-/* import javax.persistence.OneToOne; */
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,13 +31,13 @@ public class Instruction {
 
 	private String step;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnore
 	private Recipe recipe;
 	
 	@JsonIgnoreProperties("steps")
-	@OneToMany(mappedBy = "instruction", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "stepID", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<InstructionAnnotation> annotations = new ArrayList<>();
 	
 
@@ -52,11 +52,11 @@ public class Instruction {
 	
 	public void addAnnotation(InstructionAnnotation annot) {
 		annotations.add(annot);
-		annot.setInstruction(this);
+		annot.setStepID(this.id);
 	}
 	
 	public void removeAnnotation(InstructionAnnotation annot) {
 		annotations.remove(annot);
-		annot.setInstruction(null);
+		annot.setStepID(null);
 	}
 }

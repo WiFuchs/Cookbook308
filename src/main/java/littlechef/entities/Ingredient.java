@@ -7,14 +7,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-/* import javax.persistence.OneToOne; */
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,19 +24,19 @@ public class Ingredient {
 
 	@Id 
 	@GeneratedValue
-	private Long id;
+	private long id;
 	
 	private int quantity;
 	private String units;
 	private String ingredient;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     @JsonIgnore
 	private Recipe recipe;
 
 	@JsonIgnoreProperties("ingredients")
-	@OneToMany(mappedBy = "ingredient", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ingredientID", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<IngredientAnnotation> annotations = new ArrayList<>();
 
 	public Ingredient() {
@@ -58,11 +55,11 @@ public class Ingredient {
 	
 	public void addAnnotation(IngredientAnnotation annot) {
 		annotations.add(annot);
-		annot.setIngredient(this);
+		annot.setIngredientID(this.id);
 	}
 	
 	public void removeAnnotation(IngredientAnnotation annot) {
 		annotations.remove(annot);
-		annot.setIngredient(null);
+		annot.setIngredientID(null);
 	}
 }

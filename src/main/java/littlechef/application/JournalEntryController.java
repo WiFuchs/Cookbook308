@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import littlechef.entities.JournalEntry;
-import littlechef.exceptions.AccessDeniedException;
+import littlechef.entities.Recipe;
+import littlechef.exceptions.JournalEntryNotAuthenticatedException;
+//import littlechef.exceptions.AccessDeniedException;
 import littlechef.exceptions.JournalEntryNotFoundException;
+import littlechef.exceptions.RecipeNotAuthenticatedException;
 import littlechef.repositories.ApplicationUserRepository;
 import littlechef.repositories.JournalEntryRepository;
 
@@ -60,26 +64,30 @@ class JournalEntryController {
 	}
 
 	@PutMapping("/journalentries/{id}")
-	JournalEntry replaceJournalEntry(@RequestBody JournalEntry newJournalEntry, @PathVariable Long id) {
+	JournalEntry replaceJournalEntry(@AuthenticationPrincipal String user, @RequestBody JournalEntry newJournalEntry, 
+			@PathVariable Long id) {
 
-	/*
-	 * Commented out code, not sure if we will use it in the future
-	 * 
- 	 *	return repository.findById(id)
- 	 *		.map(recipe -> {
-	 *			recipe.setName(newRecipe.getName());
-     *				recipe.setRole(newRecipe.getRole());
-     *			return repository.save(employee);
-     *		})
-     *			.orElseGet(() -> {
-     *				newEmployee.setId(id);
-     *				return repository.save(newEmployee);
-     *			});
-	 */	
+		JournalEntry updatedJournalEntry = repository.findById(id)
+				.orElseGet(() -> {
+					newJournalEntry.setId(id);
+					return repository.save(newJournalEntry);
+				});
 		
-		//TODO: implement put
-		
-		return repository.findById(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
+		if(updatedJournalEntry.getUserID() == users.findByUsername(user).getId()) {
+			updatedJournalEntry.setRecipe(newJournalEntry.getRecipe());
+			updatedJournalEntry.setTimestamp(newJournalEntry.getTimestamp());
+			updatedJournalEntry.setTags(newJournalEntry.getTags());
+			updatedJournalEntry.setPrepTime(newJournalEntry.getPrepTime());
+			updatedJournalEntry.setCookTime(newJournalEntry.getCookTime());
+			updatedJournalEntry.setDifficultyRating(newJournalEntry.getDifficultyRating());
+			updatedJournalEntry.setRating(newJournalEntry.getRating());
+			updatedJournalEntry.setComment(newJournalEntry.getComment());
+			updatedJournalEntry.setStepAnnotations(newJournalEntry.getStepAnnotations());
+			updatedJournalEntry.setIngredientAnnotations(newJournalEntry.getIngredientAnnotations());
+			return repository.save(updatedJournalEntry);
+		}
+		else
+			throw new JournalEntryNotAuthenticatedException(user);
 	}
 
 	@DeleteMapping("/journalentries/{id}")
@@ -88,7 +96,7 @@ class JournalEntryController {
 		if (journal.getUserID() == users.findByUsername(user).getId()) {
 			repository.deleteById(id);
 		} else {
-			throw new AccessDeniedException();
+			throw new AccessDeniedException(user);
 		}
 	}
 	
