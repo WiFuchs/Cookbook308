@@ -102,7 +102,7 @@ class RecipeController {
 	@GetMapping("/recipes/user/{id}") 
 	List<Recipe> byUserId(@PathVariable Long id) {
 		//Return only public recipes for other users
-		return repository.findByUserID(id).stream().filter(x -> x.isPublic()).collect(Collectors.toList());
+		return repository.findByUserID(id).stream().filter(Recipe::isPublic).collect(Collectors.toList());
 		
 	}
 
