@@ -37,7 +37,7 @@ class RecipeController {
 	private final JournalEntryRepository journals;
 	private final ApplicationUserRepository users;
 	
-	private static final int NUM_REQUESTS = 1;
+	private static final int NUM_REQUESTS = 50;
 
 	RecipeController(RecipeRepository repository, JournalEntryRepository journals, ApplicationUserRepository users) {
 		this.repository = repository;
