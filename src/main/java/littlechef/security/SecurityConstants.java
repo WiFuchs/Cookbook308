@@ -6,6 +6,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class SecurityConstants {
+	
+	private SecurityConstants() {}
+	
     public static final Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     public static final long EXPIRATION_TIME = 864_000_000; // 10 days
     public static final String TOKEN_PREFIX = "Bearer ";

@@ -28,7 +28,7 @@ public class Ingredient {
 	
 	private int quantity;
 	private String units;
-	private String ingredient;
+	private String typeOfIngredient;
 
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
@@ -46,10 +46,10 @@ public class Ingredient {
 	public Ingredient(
 			@JsonProperty("quantity") int quantity, 
 			@JsonProperty("units") String units, 
-			@JsonProperty("ingredient") String ingredient) {
+			@JsonProperty("ingredient") String typeOfIngredient) {
 		this.quantity = quantity;
 		this.units = units;
-		this.ingredient = ingredient;
+		this.typeOfIngredient = typeOfIngredient;
 		this.recipe = null;
 	}
 	
