@@ -37,7 +37,7 @@ class RecipeController {
 	private final JournalEntryRepository journals;
 	private final ApplicationUserRepository users;
 	
-	private static final int NUM_REQUESTS = 50;
+	private static final int NUM_REQUESTS = 1;
 
 	RecipeController(RecipeRepository repository, JournalEntryRepository journals, ApplicationUserRepository users) {
 		this.repository = repository;
@@ -121,7 +121,7 @@ class RecipeController {
 		long uid = users.findByUsername(user).getId();
 		
 		try {
-			HttpResponse<JsonNode> response = Unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=50")
+			HttpResponse<JsonNode> response = Unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=" + NUM_REQUESTS)
 					.header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
 					.header("X-RapidAPI-Key", "ffd8925755msh676e8efd7c5ba06p17b57bjsn1be328b133cf")
 					.asJson();
@@ -132,7 +132,7 @@ class RecipeController {
 				
 				JSONObject json = resp.getJSONArray("recipes").getJSONObject(i);
 			
-						
+				System.out.println(json.toString());
 				// get ingredients
 				JSONArray arr = json.getJSONArray("extendedIngredients");
 				Ingredient[] ingredients = new Ingredient[arr.length()];
@@ -145,10 +145,11 @@ class RecipeController {
 				String instr = json.getString("instructions");
 				Instruction[] instructions = parseInstr(instr);
 				
+				System.out.println(instr);
 				//get tags
 				String tags = getTags(json);
-				
-				Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions, tags);
+			
+				Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions, tags, json.getString("image"));
 				newRecipe.setUserID(uid);
 				
 				repository.save(newRecipe);
@@ -162,7 +163,7 @@ class RecipeController {
 	}
 	
 	private Instruction[] parseInstr(String instr) {
-		String[] strInst = instr.split(".");
+		String[] strInst = instr.split("\\.");
 		Instruction[] instructions = new Instruction[strInst.length];
 		for(int i = 0; i < strInst.length; i++) {
 			instructions[i] = new Instruction(strInst[i]);

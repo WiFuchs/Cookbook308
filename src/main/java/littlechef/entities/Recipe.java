@@ -30,6 +30,7 @@ public class Recipe {
 	private int cookTime;
 	private boolean isPublic;
 	private String tags;
+	private String image;
 	//TODO add tags
 	
 	private long userID;
@@ -69,7 +70,8 @@ public class Recipe {
 			@JsonProperty("isPublic") boolean isPublic, 
 			@JsonProperty("ingredients") Ingredient[] ingredients, 
 			@JsonProperty("steps") Instruction[] steps,
-			@JsonProperty("tags") String tags) {
+			@JsonProperty("tags") String tags,
+			@JsonProperty("image") String image) {
 		this.title = title;
 		this.source = source;
 		this.difficulty = difficulty;
@@ -83,6 +85,7 @@ public class Recipe {
 		this.steps.forEach(step -> step.setRecipe(this));
 		this.userID = 0;
 		this.tags = tags;
+		this.image = image;
 	}
 	
 	public void addIngredient(Ingredient ing) {
