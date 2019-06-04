@@ -16,9 +16,18 @@ public class ApplicationUser {
     private String fName;
     private String lName;
     private String email;
+    private String bio;
 
     public long getId() {
         return id;
+    }
+    
+    public String getBio() {
+    	return bio;
+    }
+    
+    public void setBio(String bio) {
+    	this.bio = bio;
     }
 
     public String getfName() {

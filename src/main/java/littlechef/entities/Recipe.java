@@ -30,7 +30,7 @@ public class Recipe {
 	private int cookTime;
 	private boolean isPublic;
 	private String tags;
-	private String image;
+	
 	private long userID;
 	private String username;
 	
@@ -68,8 +68,7 @@ public class Recipe {
 			@JsonProperty("isPublic") boolean isPublic, 
 			@JsonProperty("ingredients") Ingredient[] ingredients, 
 			@JsonProperty("steps") Instruction[] steps,
-			@JsonProperty("tags") String tags,
-			@JsonProperty("image") String image) {
+			@JsonProperty("tags") String tags) {
 		this.title = title;
 		this.source = source;
 		this.difficulty = difficulty;
@@ -83,7 +82,6 @@ public class Recipe {
 		this.steps.forEach(step -> step.setRecipe(this));
 		this.userID = 0;
 		this.tags = tags;
-		this.image = image;
 	}
 	
 	public void addIngredient(Ingredient ing) {
@@ -107,12 +105,14 @@ public class Recipe {
 	}
 	
 	public void setAnnotations(Long jid) {
-		this.ingredients.forEach(ing ->
+		this.ingredients.forEach(ing -> {
 			ing.setAnnotations(ing.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
-				.collect(Collectors.toList())));
-		this.steps.forEach(stp ->
+				.collect(Collectors.toList()));
+		});
+		this.steps.forEach(stp -> {
 			stp.setAnnotations(stp.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
-				.collect(Collectors.toList())));
+				.collect(Collectors.toList()));
+		});
 	}
 	
 	public void update(Recipe rec) {

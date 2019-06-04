@@ -51,6 +51,7 @@ class RecipeController {
 	@PostMapping("/recipes")
 	Recipe newRecipe(@AuthenticationPrincipal String user, @RequestBody Recipe newRecipe) {
 		newRecipe.setUserID(users.findByUsername(user).getId());
+		newRecipe.setUsername(user);
 		return repository.save(newRecipe);
 	}
 
@@ -135,8 +136,9 @@ class RecipeController {
 				//get tags
 				String tags = getTags(json);
 			
-				Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions, tags, json.getString("image"));
+				Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions, tags);
 				newRecipe.setUserID(uid);
+				newRecipe.setUsername(user);
 				
 				repository.save(newRecipe);
 					    
