@@ -51,7 +51,7 @@ public class RecipeControllerTester {
     }
  
     @Test
-    public void FindAll_Recipe() throws Exception {
+    public void FindAllRecipe() throws Exception {
 
 
         when(recRepo.findByUserID(1)).thenReturn(Arrays.asList(testRec1));

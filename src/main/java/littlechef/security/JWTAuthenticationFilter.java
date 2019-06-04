@@ -59,7 +59,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.setSubject(((User) auth.getPrincipal()).getUsername())
 				.signWith(SECRET)
 				.compact();
-        System.out.println("Token: " + SECRET);
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 }

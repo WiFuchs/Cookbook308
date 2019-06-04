@@ -120,7 +120,6 @@ class RecipeController {
 				
 				JSONObject json = resp.getJSONArray("recipes").getJSONObject(i);
 			
-				System.out.println(json.toString());
 				// get ingredients
 				JSONArray arr = json.getJSONArray("extendedIngredients");
 				Ingredient[] ingredients = new Ingredient[arr.length()];
@@ -133,7 +132,6 @@ class RecipeController {
 				String instr = json.getString("instructions");
 				Instruction[] instructions = parseInstr(instr);
 				
-				System.out.println(instr);
 				//get tags
 				String tags = getTags(json);
 			
