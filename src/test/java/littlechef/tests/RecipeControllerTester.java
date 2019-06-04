@@ -45,7 +45,7 @@ public class RecipeControllerTester {
     	Instruction[] instrs = new Instruction[1];
     	instrs[0] = new Instruction("Pour into nearest cauldron");
     	
-        testRec1 = new Recipe("Yummyness", "www.UrMom.com", 5, 10, 10, true, ingreds, instrs, "Vegan");
+        testRec1 = new Recipe("Yummyness", "www.UrMom.com", 5, 10, 10, true, ingreds, instrs, "Vegan", "N/A");
         testRec1.setUserID(1);
         
     }
