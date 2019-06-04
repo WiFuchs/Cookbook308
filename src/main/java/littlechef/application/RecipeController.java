@@ -2,8 +2,6 @@ package littlechef.application;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.json.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,22 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.mashape.unirest.http.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
-import littlechef.entities.Annotation;
 import littlechef.entities.Ingredient;
 import littlechef.entities.Instruction;
-import littlechef.entities.JournalEntry;
 import littlechef.entities.Recipe;
 import littlechef.exceptions.AccessDeniedException;
-import littlechef.exceptions.JournalEntryNotFoundException;
 import littlechef.exceptions.RecipeNotFoundException;
 import littlechef.repositories.ApplicationUserRepository;
 import littlechef.repositories.JournalEntryRepository;
 import littlechef.repositories.RecipeRepository;
-
 
 @RestController
 class RecipeController {
@@ -153,7 +145,6 @@ class RecipeController {
 			}
 		}
 	    catch (UnirestException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}

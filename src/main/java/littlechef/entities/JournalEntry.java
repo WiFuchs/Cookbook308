@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,16 +23,9 @@ public class JournalEntry {
 	private int rating;
 	private String tags;
 	private String comment;
-	
-	
 	private Long userID;
-	
-	//@JoinColumn
-	//@OneToOne
 	private Long recipe;
 
-	/* TODO: remove this, will be provided by the front end */
-	/* Date format will be mm/dd/yyyy, hh:mm am/pm */
 	@Basic
 	private String timestamp;
 	
