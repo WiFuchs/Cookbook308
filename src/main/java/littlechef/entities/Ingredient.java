@@ -26,7 +26,7 @@ public class Ingredient {
 	@GeneratedValue
 	private long id;
 	
-	private int quantity;
+	private double quantity;
 	private String units;
 	private String typeOfIngredient;
 
@@ -44,7 +44,7 @@ public class Ingredient {
 
 	@JsonCreator
 	public Ingredient(
-			@JsonProperty("quantity") int quantity, 
+			@JsonProperty("quantity") double quantity, 
 			@JsonProperty("units") String units, 
 			@JsonProperty("ingredient") String typeOfIngredient) {
 		this.quantity = quantity;

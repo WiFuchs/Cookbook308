@@ -129,7 +129,7 @@ class RecipeController {
 					ingredients = new Ingredient[arr.length()];
 					for(int j = 0; j < arr.length(); j++) {
 						JSONObject jthIngr = arr.getJSONObject(j);
-						ingredients[j] = new Ingredient(jthIngr.getInt("amount"), jthIngr.getString("unit"), jthIngr.getString("name"));
+						ingredients[j] = new Ingredient(jthIngr.getDouble("amount"), jthIngr.getString("unit"), jthIngr.getString("name"));
 					}
 				}
 				if(json.has("instructions")) {
