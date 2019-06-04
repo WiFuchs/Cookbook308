@@ -23,18 +23,17 @@ public class TestInstructionandRecipe {
 	
 	@Test
 	public void testRecipeUpdateSource() {
-		Recipe oldRecipe = new Recipe("Pasta", "online", 3, 10, 20, true, 
+		Recipe[] recipes = {new Recipe("Pasta", "online", 3, 10, 20, true, 
 				new Ingredient[]{new Ingredient(1, "pound", "gluten-free pasta"), new Ingredient(0.5, "kilogram", "tomato sauce")}, 
 				new Instruction[]{new Instruction("boil water"), new Instruction("put pasta in water"), new Instruction("add sauce")}, 
-				"gluten-free");
+				"gluten-free"), 
+				new Recipe("Pasta", "old family recipe", 3, 10, 20, false, 
+						new Ingredient[]{new Ingredient(3, "kilograms", "pasta"), new Ingredient(1.25, "ounces", "garlic pesto"), new Ingredient(2.5, "pounds", "sausage")}, 
+						new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan and add sauce")}, 
+						"not gluten-free")};
 		
-		Recipe newRecipe = new Recipe("Pasta", "old family recipe", 3, 10, 20, false, 
-				new Ingredient[]{new Ingredient(3, "kilograms", "pasta"), new Ingredient(1.25, "ounces", "garlic pesto"), new Ingredient(2.5, "pounds", "sausage")}, 
-				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan and add sauce")}, 
-				"not gluten-free");
+		recipes[0].update(recipes[1]);
 		
-		oldRecipe.update(newRecipe);
-		
-		assertEquals(newRecipe.getSource(), oldRecipe.getSource());
+		assertEquals(recipes[1].getSource(), recipes[0].getSource());
 	}
 }

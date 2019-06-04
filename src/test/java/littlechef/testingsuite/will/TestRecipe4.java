@@ -10,19 +10,19 @@ public class TestRecipe4 {
 
 	@Test
 	public void testRecipeUpdateTags() {
-		Recipe oldRecipe = new Recipe("Pasta", "a bad recipe from a cookbook", 3, 10, 20, true, 
-				new Ingredient[]{new Ingredient(1, "pound", "gluten-free pasta"), new Ingredient(0.5, "pound", "tomato sauce")}, 
+		Recipe[] recipes = {new Recipe(), new Recipe(), new Recipe(),
+				new Recipe("Pasta", "online", 3, 10, 20, true, 
+				new Ingredient[]{new Ingredient(1, "pound", "gluten-free pasta"), new Ingredient(0.5, "kilogram", "tomato sauce")}, 
 				new Instruction[]{new Instruction("boil water"), new Instruction("put pasta in water"), new Instruction("add sauce")}, 
-				"gluten-free");
+				"gluten-free"), 
+				new Recipe("Pasta", "old family recipe", 3, 10, 20, false, 
+						new Ingredient[]{new Ingredient(3, "kilograms", "pasta"), new Ingredient(1.25, "ounces", "garlic pesto"), new Ingredient(2.5, "pounds", "sausage")}, 
+						new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan and add sauce")}, 
+						"not gluten-free")};
 		
-		Recipe newRecipe = new Recipe("Pasta", "online", 3, 10, 20, false, 
-				new Ingredient[]{new Ingredient(3, "pounds", "pasta"), new Ingredient(1.25, "ounces", "tomato and pesto sauce"), new Ingredient(2.5, "kilograms", "sausage")}, 
-				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan with sauce")}, 
-				"not gluten-free");
+		recipes[3].update(recipes[4]);
 		
-		oldRecipe.update(newRecipe);
-		
-		assertEquals(false, oldRecipe.getTags().contentEquals(newRecipe.getTags()));
+		assertEquals(false, recipes[3].getTags().contentEquals(recipes[4].getTags()));
 	}
 	
 	@Test

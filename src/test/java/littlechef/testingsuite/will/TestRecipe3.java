@@ -10,19 +10,19 @@ public class TestRecipe3 {
 
 	@Test
 	public void testRecipeUpdateSteps() {
-		Recipe oldRecipe = new Recipe("Pasta", "online", 3, 10, 20, true, 
+		Recipe[] recipes = {new Recipe("Pasta", "online", 3, 10, 20, true, 
 				new Ingredient[]{new Ingredient(1, "pound", "gluten-free pasta"), new Ingredient(0.5, "kilogram", "tomato sauce")}, 
-				new Instruction[]{new Instruction("boil in slightly salted water"), new Instruction("put pasta in water"), new Instruction("add sauce")}, 
-				"gluten-free");
+				new Instruction[]{new Instruction("boil water"), new Instruction("put pasta in water"), new Instruction("add sauce")}, 
+				"gluten-free"), 
+				new Recipe("Pasta", "old family recipe", 3, 10, 20, false, 
+						new Ingredient[]{new Ingredient(3, "kilograms", "pasta"), new Ingredient(1.25, "ounces", "garlic pesto"), new Ingredient(2.5, "pounds", "sausage")}, 
+						new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan and add sauce")}, 
+						"not gluten-free"),
+				new Recipe()};
 		
-		Recipe newRecipe = new Recipe("Pasta", "online", 3, 10, 20, false, 
-				new Ingredient[]{new Ingredient(3, "pounds", "pasta"), new Ingredient(1.25, "ounces", "pesto"), new Ingredient(2.5, "kilograms", "sausage")}, 
-				new Instruction[]{new Instruction("heat pan with olive oil"), new Instruction("fry pasta in pan with sauce")}, 
-				"not gluten-free");
+		recipes[0].update(recipes[1]);
 		
-		oldRecipe.update(newRecipe);
-		
-		assertEquals(2, oldRecipe.getSteps().size());
+		assertEquals(2, recipes[0].getSteps().size());
 	}
 	
 	@Test
