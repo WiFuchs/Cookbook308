@@ -29,8 +29,8 @@ public class TestInstructionandRecipe {
 				"gluten-free");
 		
 		Recipe newRecipe = new Recipe("Pasta", "old family recipe", 3, 10, 20, false, 
-				new Ingredient[]{new Ingredient(3, "kilograms", "pasta"), new Ingredient(1.25, "ounces", "pesto"), new Ingredient(2.5, "pounds", "sausage")}, 
-				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta on pan with sauce")}, 
+				new Ingredient[]{new Ingredient(3, "kilograms", "pasta"), new Ingredient(1.25, "ounces", "garlic pesto"), new Ingredient(2.5, "pounds", "sausage")}, 
+				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan and add sauce")}, 
 				"not gluten-free");
 		
 		oldRecipe.update(newRecipe);

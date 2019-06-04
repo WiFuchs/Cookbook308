@@ -10,14 +10,14 @@ public class TestRecipe4 {
 
 	@Test
 	public void testRecipeUpdateTags() {
-		Recipe oldRecipe = new Recipe("Pasta", "online", 3, 10, 20, true, 
+		Recipe oldRecipe = new Recipe("Pasta", "a bad recipe from a cookbook", 3, 10, 20, true, 
 				new Ingredient[]{new Ingredient(1, "pound", "gluten-free pasta"), new Ingredient(0.5, "pound", "tomato sauce")}, 
 				new Instruction[]{new Instruction("boil water"), new Instruction("put pasta in water"), new Instruction("add sauce")}, 
 				"gluten-free");
 		
-		Recipe newRecipe = new Recipe("Pasta", "old family recipe", 3, 10, 20, false, 
-				new Ingredient[]{new Ingredient(3, "pounds", "pasta"), new Ingredient(1.25, "ounces", "pesto"), new Ingredient(2.5, "kilograms", "sausage")}, 
-				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta on pan with sauce")}, 
+		Recipe newRecipe = new Recipe("Pasta", "online", 3, 10, 20, false, 
+				new Ingredient[]{new Ingredient(3, "pounds", "pasta"), new Ingredient(1.25, "ounces", "tomato and pesto sauce"), new Ingredient(2.5, "kilograms", "sausage")}, 
+				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan with sauce")}, 
 				"not gluten-free");
 		
 		oldRecipe.update(newRecipe);

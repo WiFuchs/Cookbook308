@@ -31,7 +31,7 @@ public class TestRecipe2 {
 		
 		Recipe newRecipe = new Recipe("Pasta", "online", 3, 10, 20, true, 
 				new Ingredient[]{new Ingredient(3, "pounds", "pasta"), new Ingredient(1.25, "ounces", "pesto"), new Ingredient(2.5, "kilograms", "sausage")}, 
-				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta on pan with sauce")}, 
+				new Instruction[]{new Instruction("heat pan"), new Instruction("fry pasta in pan with sauce")}, 
 				"not gluten-free");
 		
 		oldRecipe.update(newRecipe);
