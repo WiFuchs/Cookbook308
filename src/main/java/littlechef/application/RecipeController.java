@@ -122,21 +122,42 @@ class RecipeController {
 				JSONObject json = resp.getJSONArray("recipes").getJSONObject(i);
 			
 				// get ingredients
-				JSONArray arr = json.getJSONArray("extendedIngredients");
-				Ingredient[] ingredients = new Ingredient[arr.length()];
-				for(int j = 0; j < arr.length(); j++) {
-					JSONObject jthIngr = arr.getJSONObject(j);
-					ingredients[j] = new Ingredient(jthIngr.getInt("amount"), jthIngr.getString("unit"), jthIngr.getString("name"));
+				Ingredient[] ingredients = null;
+				Instruction[] instructions = null;
+				if(json.has("extendedIngredients")) {
+					JSONArray arr = json.getJSONArray("extendedIngredients");
+					ingredients = new Ingredient[arr.length()];
+					for(int j = 0; j < arr.length(); j++) {
+						JSONObject jthIngr = arr.getJSONObject(j);
+						ingredients[j] = new Ingredient(jthIngr.getInt("amount"), jthIngr.getString("unit"), jthIngr.getString("name"));
+					}
 				}
-				
-				// get instructions
-				String instr = json.getString("instructions");
-				Instruction[] instructions = parseInstr(instr);
-				
+				if(json.has("instructions")) {
+					// get instructions
+					String instr = json.getString("instructions");
+					instructions = parseInstr(instr);
+				}
 				//get tags
 				String tags = getTags(json);
-			
-				Recipe newRecipe = new Recipe(json.getString("title"), json.getString("sourceUrl"), -1, json.getInt("preparationMinutes"), json.getInt("cookingMinutes"), true, ingredients, instructions, tags);
+
+				String title = "";
+				String src = "";
+				int prepTime = 0;
+				int cookTime = 0;
+				
+				if(json.has("title")) {
+					title = json.getString("title");
+				}
+				if(json.has("sourceUrl")) {
+					src = json.getString("sourceUrl");
+				}
+				if(json.has("preparationMinutes")) {
+					prepTime = json.getInt("preparationMinutes");
+				}
+				if(json.has("cookingMinutes")) {
+					cookTime = json.getInt("cookingMinutes");
+				}
+				Recipe newRecipe = new Recipe(title, src, -1, prepTime, cookTime, true, ingredients, instructions, tags);
 				newRecipe.setUserID(uid);
 				newRecipe.setUsername(user);
 				
@@ -159,6 +180,7 @@ class RecipeController {
 		
 	}
 	
+	
 	private String getTags(JSONObject json) {
 		
 		StringBuilder tags = new StringBuilder();
@@ -176,7 +198,7 @@ class RecipeController {
 				"whole30" 
 			};
 		for(int i = 0; i < tagsArray.length; i++) {
-			if(json.getBoolean(tagsArray[i])) {
+			if(json.has(tagsArray[i]) && json.getBoolean(tagsArray[i])) {
 				tags.append(tagsArray[i] + "|");
 			}
 		}

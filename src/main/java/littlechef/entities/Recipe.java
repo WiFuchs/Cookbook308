@@ -30,7 +30,7 @@ public class Recipe {
 	private int cookTime;
 	private boolean isPublic;
 	private String tags;
-	
+
 	private long userID;
 	private String username;
 	

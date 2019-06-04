@@ -4,13 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
-
+import littlechef.LittleChefApplication;
 import littlechef.entities.Ingredient;
 import littlechef.entities.Instruction;
 import littlechef.entities.Recipe;
@@ -24,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
  
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class, WebApplicationContext.class})
+@ContextConfiguration(classes = {LittleChefApplication.class})
 @WebAppConfiguration
 public class RecipeControllerTester {
  
@@ -44,16 +42,16 @@ public class RecipeControllerTester {
     	
     	Instruction[] instrs = new Instruction[1];
     	instrs[0] = new Instruction("Pour into nearest cauldron");
-    	
-        testRec1 = new Recipe("Yummyness", "www.UrMom.com", 5, 10, 10, true, ingreds, instrs, "Vegan", "N/A");
+
+        testRec1 = new Recipe("Yummyness", "www.UrMom.com", 5, 10, 10, true, ingreds, instrs, "Vegan");
         testRec1.setUserID(1);
         
     }
  
     @Test
-    public void FindAllRecipe() throws Exception {
+    public void findAllRecipe() throws Exception {
 
-
+    	//TODO try signing in first?
         when(recRepo.findByUserID(1)).thenReturn(Arrays.asList(testRec1));
  
         mockMvc.perform(get("/recipes"))
@@ -69,7 +67,9 @@ public class RecipeControllerTester {
                 .andExpect(jsonPath("$[0].isPublic", is(true)))
                 .andExpect(jsonPath("$[0].rating", is(0)))
                 .andExpect(jsonPath("$[0].source", is("www.UrMom.com")))
-                .andExpect(jsonPath("$[0].steps[0].step", is("Pour into nearest cauldron")));
+                .andExpect(jsonPath("$[0].steps[0].step", is("Pour into nearest cauldron")))
+                .andExpect(jsonPath("$[0].tags", is("Vegan")))
+                .andExpect(jsonPath("$[0].image", is("www.image.com")));
  
         verify(recRepo, times(1)).findByUserID(1);
         verifyNoMoreInteractions(recRepo);
