@@ -12,9 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class InstructionAnnotation extends Annotation {
 
-	//@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn
-    //@JsonIgnoreProperties("stepannotations")
     private Long stepID;
 
     public InstructionAnnotation() {}
