@@ -140,23 +140,10 @@ class RecipeController {
 				//get tags
 				String tags = getTags(json);
 
-				String title = "";
-				String src = "";
-				int prepTime = 0;
-				int cookTime = 0;
-				
-				if(json.has("title")) {
-					title = json.getString("title");
-				}
-				if(json.has("sourceUrl")) {
-					src = json.getString("sourceUrl");
-				}
-				if(json.has("preparationMinutes")) {
-					prepTime = json.getInt("preparationMinutes");
-				}
-				if(json.has("cookingMinutes")) {
-					cookTime = json.getInt("cookingMinutes");
-				}
+				String title = checkTitle(json);
+				String src = checkSource(json);
+				int prepTime = checkPrepTime(json);
+				int cookTime = checkCookTime(json);
 				Recipe newRecipe = new Recipe(title, src, -1, prepTime, cookTime, true, ingredients, instructions, tags);
 				newRecipe.setUserID(uid);
 				newRecipe.setUsername(user);
@@ -168,6 +155,38 @@ class RecipeController {
 	    catch (UnirestException e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	private String checkTitle(JSONObject json) {
+		String title = "";
+		if(json.has("title")) {
+			title = json.getString("title");
+		}
+		return title;
+	}
+	
+	private String checkSource(JSONObject json) {
+		String source = "";
+		if(json.has("sourceUrl")) {
+			source = json.getString("sourceUrl");
+		}
+		return source;
+	}
+	
+	private int checkPrepTime(JSONObject json) {
+		int prepTime = 0;
+		if(json.has("preparationMinutes")) {
+			prepTime = json.getInt("preparationMinutes");
+		}
+		return prepTime;
+	}
+	
+	private int checkCookTime(JSONObject json) {
+		int cookTime = 0;
+		if(json.has("cookingMinutes")) {
+			cookTime = json.getInt("cookingMinutes");
+		}
+		return cookTime;
 	}
 	
 	private Instruction[] parseInstr(String instr) {
