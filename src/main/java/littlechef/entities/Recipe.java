@@ -105,14 +105,11 @@ public class Recipe {
 	}
 	
 	public void setAnnotations(Long jid) {
-		this.ingredients.forEach(ing -> {
+		this.ingredients.forEach(ing ->
 			ing.setAnnotations(ing.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
-				.collect(Collectors.toList()));
-		});
-		this.steps.forEach(stp -> {
-			stp.setAnnotations(stp.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
-				.collect(Collectors.toList()));
-		});
+				.collect(Collectors.toList())));
+		this.steps.forEach(stp -> stp.setAnnotations(stp.getAnnotations().stream().filter(a -> a.getJournal().getId() == jid)
+				.collect(Collectors.toList())));
 	}
 	
 	public void update(Recipe rec) {

@@ -1,11 +1,8 @@
 package littlechef.entities;
 
 import lombok.Data;
-
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
