@@ -1,0 +1,42 @@
+
+/populate
+
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("instructions");
+});
+
+/recipe (post)
+
+pm.test("response is ok", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Body contains title", function () {
+    pm.expect(pm.response.text()).to.include("title");
+});
+
+/recipe (get)
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("Grilled Tequila Lime Chicken Fajita Tacos");
+});
+
+/sign-up
+pm.test("New user created", function () {
+    pm.response.to.have.status(201);
+});
+
+/login
+pm.test("Response is ok", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Authorization Token Granted", function () {
+    pm.response.to.have.header("Authorization");
+});
