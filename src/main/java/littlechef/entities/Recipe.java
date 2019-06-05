@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 @Data
 @Entity
 public class Recipe {
@@ -21,7 +20,6 @@ public class Recipe {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
 	private String title;
 	private String source;
 	private int rating;
@@ -30,7 +28,6 @@ public class Recipe {
 	private int cookTime;
 	private boolean isPublic;
 	private String tags;
-
 	private long userID;
 	private String username;
 	

@@ -18,7 +18,6 @@ import littlechef.exceptions.JournalEntryNotFoundException;
 import littlechef.repositories.ApplicationUserRepository;
 import littlechef.repositories.JournalEntryRepository;
 
-
 @RestController
 class JournalEntryController {
 
@@ -31,7 +30,6 @@ class JournalEntryController {
 	}
 
 	// Aggregate root
-
 	@GetMapping("/journalentries")
 	List<JournalEntry> all(@AuthenticationPrincipal String user) {
 		return repository.findByUserID(users.findByUsername(user).getId());
@@ -44,30 +42,25 @@ class JournalEntryController {
 	}
 
 	// Single item
-
 	@GetMapping("/journalentries/{id}")
-	JournalEntry one(@PathVariable Long id) {
-		
+	JournalEntry one(@PathVariable Long id) {		
 		return repository.findById(id).orElseThrow(() -> new JournalEntryNotFoundException(id));
 	}
 	
 	@GetMapping("/user/{id}/journalentries/{timestamp}")
 	JournalEntry byIdAndTimeStamp(@PathVariable("id") Long id, 
-			@PathVariable("timestamp") @DateTimeFormat(pattern = "yyyy-MM-dd") Date timestamp) {
-	
+			@PathVariable("timestamp") @DateTimeFormat(pattern = "yyyy-MM-dd") Date timestamp) {	
 		return repository.findByUserIDAndTimestamp(id, timestamp).orElseThrow(() -> new JournalEntryNotFoundException(timestamp));
 	}
 
 	@PutMapping("/journalentries/{id}")
 	JournalEntry replaceJournalEntry(@AuthenticationPrincipal String user, @RequestBody JournalEntry newJournalEntry, 
 			@PathVariable Long id) {
-
 		JournalEntry updatedJournalEntry = repository.findById(id)
 				.orElseGet(() -> {
 					newJournalEntry.setId(id);
 					return repository.save(newJournalEntry);
-				});
-		
+				});	
 		if(updatedJournalEntry.getUserID() == users.findByUsername(user).getId()) {
 			updatedJournalEntry.setRecipe(newJournalEntry.getRecipe());
 			updatedJournalEntry.setTimestamp(newJournalEntry.getTimestamp());
@@ -94,11 +87,9 @@ class JournalEntryController {
 	}
 	
 	@GetMapping("/journalentries/first")
-	JournalEntry first1ByOrderByTimeDesc(@AuthenticationPrincipal String user) {
-		
-		long id = users.findByUsername(user).getId();
-		
+	JournalEntry first1ByOrderByTimeDesc(@AuthenticationPrincipal String user) {		
+		long id = users.findByUsername(user).getId();		
 		return repository.findFirst1ByUserIDOrderByTimestampDesc(id).orElseThrow(
-						() -> new JournalEntryNotFoundException(id));
+				() -> new JournalEntryNotFoundException(id));
 	}
 }

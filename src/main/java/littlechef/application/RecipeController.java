@@ -38,7 +38,6 @@ class RecipeController {
 	}
 
 	// Aggregate root
-
 	@GetMapping("/recipes")
 	List<Recipe> all(@AuthenticationPrincipal String user) {
 		List<Recipe> recs = repository.findByUserID(users.findByUsername(user).getId());
@@ -47,7 +46,6 @@ class RecipeController {
 		return recs;
 	}
 	
-
 	@PostMapping("/recipes")
 	Recipe newRecipe(@AuthenticationPrincipal String user, @RequestBody Recipe newRecipe) {
 		newRecipe.setUserID(users.findByUsername(user).getId());
@@ -56,43 +54,34 @@ class RecipeController {
 	}
 
 	// Single item
-
 	@GetMapping("recipes/{rid}")
 	Recipe one(@AuthenticationPrincipal String user, @PathVariable("rid") Long rid) {
 		long id = users.findByUsername(user).getId();
-
 		Recipe rec = repository.findByUserIDAndId(id, rid).orElseThrow(() -> new RecipeNotFoundException(rid));
-
-		//Definitely works!
 		journals.findFirst1ByRecipeOrderByTimestampDesc(rid).ifPresent(journ ->
 			rec.setAnnotations(journ.getId()));
-		
 		return rec;
 	}
 
 	@PutMapping("/recipes/{id}")
 	Recipe replaceRecipe(@AuthenticationPrincipal String user, @RequestBody Recipe newRecipe, @PathVariable Long id) {
 		long uid = users.findByUsername(user).getId();
-		
 		Recipe rec = repository.findById(id).orElseGet(() -> {
 			newRecipe.setId(id);
 			newRecipe.setUserID(uid);
 			return repository.save(newRecipe);
-		});
-		
+		});		
 		if (rec.getUserID() != uid) {
 			throw new AccessDeniedException();
 		}
-		
 		rec.update(newRecipe);
 		return repository.save(rec);
 	}
 	
+	//Return only public recipes for other users	
 	@GetMapping("/recipes/user/{id}") 
 	List<Recipe> byUserId(@PathVariable Long id) {
-		//Return only public recipes for other users
 		return repository.findByUserID(id).stream().filter(Recipe::isPublic).collect(Collectors.toList());
-		
 	}
 
 	@DeleteMapping("/recipes/{id}")
@@ -108,20 +97,16 @@ class RecipeController {
 	@PostMapping("/recipes/populate")
 	void populate(@AuthenticationPrincipal String user) {
 		long uid = users.findByUsername(user).getId();
-		
 		try {
 			HttpResponse<JsonNode> response = Unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=" + NUM_REQUESTS)
 					.header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
 					.header("X-RapidAPI-Key", "ffd8925755msh676e8efd7c5ba06p17b57bjsn1be328b133cf")
 					.asJson();
-			
 			JSONObject resp = response.getBody().getObject();
-			
-			for(int i = 0; i < NUM_REQUESTS; i++) {
+			for(int i = 0; i < NUM_REQUESTS; i++) {	
 				
-				JSONObject json = resp.getJSONArray("recipes").getJSONObject(i);
-			
 				// get ingredients
+				JSONObject json = resp.getJSONArray("recipes").getJSONObject(i);
 				Ingredient[] ingredients = null;
 				Instruction[] instructions = null;
 				if(json.has("extendedIngredients")) {
@@ -132,24 +117,23 @@ class RecipeController {
 						ingredients[j] = new Ingredient(jthIngr.getDouble("amount"), jthIngr.getString("unit"), jthIngr.getString("name"));
 					}
 				}
+				
+				// get instructions
 				if(json.has("instructions")) {
-					// get instructions
 					String instr = json.getString("instructions");
 					instructions = parseInstr(instr);
 				}
+				
 				//get tags
 				String tags = getTags(json);
-
 				String title = checkTitle(json);
 				String src = checkSource(json);
 				int prepTime = checkPrepTime(json);
 				int cookTime = checkCookTime(json);
 				Recipe newRecipe = new Recipe(title, src, -1, prepTime, cookTime, true, ingredients, instructions, tags);
 				newRecipe.setUserID(uid);
-				newRecipe.setUsername(user);
-				
+				newRecipe.setUsername(user);	
 				repository.save(newRecipe);
-					    
 			}
 		}
 	    catch (UnirestException e) {
@@ -196,12 +180,9 @@ class RecipeController {
 			instructions[i] = new Instruction(strInst[i]);
 		}
 		return instructions;
-		
 	}
 	
-	
 	private String getTags(JSONObject json) {
-		
 		StringBuilder tags = new StringBuilder();
 		String[] tagsArray = {
 				"vegetarian",

@@ -1,7 +1,6 @@
 package littlechef.entities;
 
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -37,9 +36,7 @@ public class Instruction {
 	@OneToMany(mappedBy = "stepID", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<InstructionAnnotation> annotations = new ArrayList<>();
 	
-	
-	public Instruction() {
-	}
+	public Instruction() {}
 
 	@JsonCreator
 	public Instruction(@JsonProperty("step")String step) {
